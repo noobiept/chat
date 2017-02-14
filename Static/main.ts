@@ -9,6 +9,9 @@ window.onload = function () {
     SOCKET.onopen = function () {
         SOCKET.send( "Hello" );
     };
+    SOCKET.onmessage = function ( event: MessageEvent ) {
+        addToList( event.data );
+    };
 
     init();
 };
@@ -28,12 +31,22 @@ function init() {
 }
 
 
+/**
+ * A new message was sent by the user. Add to the chat list and send it to the server as well.
+ */
 function newMessage() {
     var message = CHAT_INPUT.value;
     CHAT_INPUT.value = '';
 
     SOCKET.send( message );
+    addToList( message );
+}
 
+
+/**
+ * Add a message to the chat list.
+ */
+function addToList( message: string ) {
     var messageItem = document.createElement( "li" );
     messageItem.innerText = message;
     CHAT_LIST.appendChild( messageItem );
