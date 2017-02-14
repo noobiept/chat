@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Chat</title>
+        <script src="/static/main.js"></script>
+    </head>
+    <body>
+        <ul id="ChatList"></ul>
+        <div>
+            <input id="ChatInput" type="text" placeholder="Write you message here.." />
+        </div>
+    </body>
+</html>
