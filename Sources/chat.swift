@@ -20,8 +20,9 @@ class Chat: WebSocketService {
     private var nextId = 0
     private enum MessageType: Character {
         case textMessage = "M"
-        case requestUsername = "U"
+        case clientReady = "R"
     }
+    private var lastMessages = [String]()
 
 
     public func connected( connection: WebSocketConnection ) {
@@ -31,7 +32,7 @@ class Chat: WebSocketService {
 
         connections[ connection.id ] = Connection( socket: connection, username: username )
 
-        // notify the user what is his username
+            // notify the user what is his username
         connection.send( message: "U|\(username)" )
     }
 
@@ -57,8 +58,8 @@ class Chat: WebSocketService {
         let type = message[ message.startIndex ]
 
         switch type {
-            case MessageType.requestUsername.rawValue:
-                receivedUsernameRequest( message: message, socket: from )
+            case MessageType.clientReady.rawValue:
+                clientIsReady( socket: from )
 
             case MessageType.textMessage.rawValue:
                 receivedTextMessage( message: message, socket: from )
@@ -86,14 +87,35 @@ class Chat: WebSocketService {
                 connection.socket.send( message: sendMessage )
             }
         }
+
+        self.saveMessage( message: sendMessage )
     }
 
 
     /**
-     * Return the username associated with this socket connection.
+     * Return the username associated with this socket connection, and the last chat messages.
      */
-    private func receivedUsernameRequest( message: String, socket: WebSocketConnection ) {
+    private func clientIsReady( socket: WebSocketConnection ) {
         let username = self.connections[ socket.id ]!.username
         socket.send( message: "U|\(username)" )
+
+            // send the last messages
+        for message in self.lastMessages {
+            socket.send( message: message )
+        }
+    }
+
+
+    /**
+     * We save the last messages so we can send them when a new user connects (so he knows what everyone else was talking about before he joined).
+     */
+    private func saveMessage( message: String ) {
+        self.lastMessages.append( message )
+
+            // save the last 10 messages
+            // if the array is full, then remove the first (older) one
+        if self.lastMessages.count > 10 {
+            self.lastMessages.remove( at: 0 )
+        }
     }
 }

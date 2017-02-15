@@ -5,5 +5,12 @@
 
 # Messages #
 
+## Client ##
+
 - `"U|(username)"` -- Tells you what is your username.
+- `"M|(username)|(message)"` -- Received a message.
+
+## Server ##
+
+- `"R"` -- A client is ready, send his username and the last chat messages.
 - `"M|(username)|(message)"` -- Received a message.

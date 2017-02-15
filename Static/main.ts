@@ -13,9 +13,7 @@ interface Message {
 window.onload = function () {
 
     SOCKET = new WebSocket( "ws://" + window.location.host + "/chat", "chat" );
-    SOCKET.onopen = function () {
-        requestUsername();
-    };
+    SOCKET.onopen = socketReady;
     SOCKET.onmessage = function ( event: MessageEvent ) {
         var type = event.data[ 0 ];
 
@@ -95,8 +93,11 @@ function addToList( message: Message ) {
 }
 
 
-function requestUsername() {
-    SOCKET.send( "U" );
+/**
+ * The connection is opened, signal that to the server so it can send some initial information.
+ */
+function socketReady() {
+    SOCKET.send( "R" );
 }
 
 
