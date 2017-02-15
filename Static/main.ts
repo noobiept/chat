@@ -14,11 +14,11 @@ window.onload = function () {
 
     SOCKET = new WebSocket( "ws://" + window.location.host + "/chat", "chat" );
     SOCKET.onopen = function () {
-        SOCKET.send( "Hello" );
+        requestUsername();
     };
     SOCKET.onmessage = function ( event: MessageEvent ) {
         var type = event.data[ 0 ];
-        
+
         switch ( type ) {
             case "U":
                 let username = parseUsernameMessage( event.data );
@@ -77,7 +77,7 @@ function newMessage() {
     var message = CHAT_INPUT.value;
     CHAT_INPUT.value = '';
 
-    SOCKET.send( message );
+    SOCKET.send( "M|" + message );
     addToList( {
         message: message, username: USERNAME
     });
@@ -92,6 +92,11 @@ function addToList( message: Message ) {
 
     messageItem.innerText = message.username + ": " + message.message;
     CHAT_LIST.appendChild( messageItem );
+}
+
+
+function requestUsername() {
+    SOCKET.send( "U" );
 }
 
 
