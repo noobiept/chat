@@ -33,13 +33,11 @@ class Chat: WebSocketService {
 
         // notify the user what is his username
         connection.send( message: "U|\(username)" )
-        Log.info( "U|\(username)" )
     }
 
 
     public func disconnected( connection: WebSocketConnection, reason: WebSocketCloseReasonCode ) {
         connections.removeValue( forKey: connection.id )
-        Log.info( "A user left" )
     }
 
 
@@ -51,6 +49,11 @@ class Chat: WebSocketService {
 
 
     public func received( message: String, from: WebSocketConnection ) {
+
+        if message.characters.count == 0 {
+            return
+        }
+
         let type = message[ message.startIndex ]
 
         switch type {
