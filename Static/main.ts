@@ -94,6 +94,12 @@ module Chat {
      */
     function newMessage() {
         var message = CHAT_INPUT.value;
+
+            // don't send empty messages
+        if ( message.length === 0 ) {
+            return;
+        }
+
         CHAT_INPUT.value = '';
 
         SOCKET.send( "M|" + message );
