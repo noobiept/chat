@@ -10,6 +10,14 @@ interface Message {
 }
 
 
+const MessageType = {
+    getUsername : "U",  // U|(username)
+    textMessage : "M",  // M|(username)|(message)
+    userJoined  : "J",  // J|(username)
+    userLeft    : "L"   // L|(username)
+}
+
+
 window.onload = function () {
 
     SOCKET = new WebSocket( "ws://" + window.location.host + "/chat", "chat" );
@@ -18,14 +26,24 @@ window.onload = function () {
         var type = event.data[ 0 ];
 
         switch ( type ) {
-            case "U":
-                let username = parseUsernameMessage( event.data );
+            case MessageType.getUsername:
+                var username = parseUsernameMessage( event.data );
                 associateUsername( username );
                 break;
 
-            case "M":
-                let message = parseTextMessage( event.data );
+            case MessageType.textMessage:
+                var message = parseTextMessage( event.data );
                 addToList( message );
+                break;
+
+            case MessageType.userJoined:
+                var username = parseUsernameMessage( event.data );
+                userJoined( username );
+                break;
+
+            case MessageType.userLeft:
+                var username = parseUsernameMessage( event.data );
+                userLeft( username );
                 break;
         }
     };
@@ -90,6 +108,22 @@ function addToList( message: Message ) {
 
     messageItem.innerText = message.username + ": " + message.message;
     CHAT_LIST.appendChild( messageItem );
+}
+
+
+/**
+ * Show a message saying the given user has joined the chat.
+ */
+function userJoined( username: string ) {
+    addToList({ username: username, message: "Joined." });
+}
+
+
+/**
+ * Show a message saying the given user has left the chat.
+ */
+function userLeft( username: string ) {
+    addToList({ username: username, message: "Left." });
 }
 
 

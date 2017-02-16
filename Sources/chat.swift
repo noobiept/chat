@@ -34,11 +34,19 @@ class Chat: WebSocketService {
 
             // notify the user what is his username
         connection.send( message: "U|\(username)" )
+
+            // notify the rest of the users that this user joined
+        self.sendMessageToAll( message: "J|\(username)", socket: connection )
     }
 
 
     public func disconnected( connection: WebSocketConnection, reason: WebSocketCloseReasonCode ) {
-        connections.removeValue( forKey: connection.id )
+
+        if let info = connections.removeValue( forKey: connection.id ) {
+
+                // notify the rest of the users that this user left the chat
+            self.sendMessageToAll( message: "L|\(info.username)", socket: connection )
+        }
     }
 
 
@@ -82,12 +90,7 @@ class Chat: WebSocketService {
         let username = self.connections[ socket.id ]!.username
         let sendMessage = "M|\(username)|\(receivedMessage)"
 
-        for ( connectionId, connection ) in connections {
-            if connectionId != socket.id {
-                connection.socket.send( message: sendMessage )
-            }
-        }
-
+        self.sendMessageToAll( message: sendMessage, socket: socket )
         self.saveMessage( message: sendMessage )
     }
 
@@ -116,6 +119,18 @@ class Chat: WebSocketService {
             // if the array is full, then remove the first (older) one
         if self.lastMessages.count > 10 {
             self.lastMessages.remove( at: 0 )
+        }
+    }
+
+
+    /**
+     * Send a message to all the chat users (apart from the current one).
+     */
+    private func sendMessageToAll( message: String, socket: WebSocketConnection ) {
+        for ( connectionId, connection ) in self.connections {
+            if connectionId != socket.id {
+                connection.socket.send( message: message )
+            }
         }
     }
 }
