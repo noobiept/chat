@@ -66,6 +66,9 @@ module Chat {
                 newMessage();
             }
         };
+
+        let send = document.getElementById( "Send" )!;
+        send.onclick = newMessage;
     }
 
 
@@ -113,10 +116,20 @@ module Chat {
      * Add a message to the chat list.
      */
     function addToList( message: Message ) {
-        var messageItem = document.createElement( "li" );
+        let item = document.createElement( "li" );
+        let usernamePart = document.createElement( "span" );
+        let messagePart = document.createElement( "span" );
 
-        messageItem.innerText = message.username + ": " + message.message;
-        CHAT_LIST.appendChild( messageItem );
+        usernamePart.className = 'username';
+        usernamePart.innerText = message.username;
+
+        messagePart.className = 'message';
+        messagePart.innerText = message.message;
+
+        item.appendChild( usernamePart );
+        item.appendChild( messagePart );
+
+        CHAT_LIST.appendChild( item );
     }
 
 

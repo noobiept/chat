@@ -25,3 +25,8 @@ html, body {
 #ChatInput, #Send {
     margin: 3px;
 }
+
+.username {
+    color: blue;
+    margin: 0 5px;
+}
