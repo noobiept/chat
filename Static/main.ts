@@ -11,10 +11,10 @@ module Chat {
     }
 
     const MessageType = {
-        getUsername : "U",  // U|(username)
-        textMessage : "M",  // M|(username)|(message)
-        userJoined  : "J",  // J|(username)
-        userLeft    : "L"   // L|(username)
+        getUsername: "U",  // U|(username)
+        textMessage: "M",  // M|(username)|(message)
+        userJoined: "J",   // J|(username)
+        userLeft: "L"      // L|(username)
     }
 
 
@@ -22,6 +22,7 @@ module Chat {
     var CHAT_LIST: HTMLUListElement;
     var CHAT_INPUT: HTMLInputElement;
     var USERNAME = '';
+    var USERS_COLORS: { [ username: string ]: string } = {};
 
 
     /**
@@ -67,7 +68,7 @@ module Chat {
             }
         };
 
-        let send = document.getElementById( "Send" )!;
+        let send = document.getElementById( "Send" ) !;
         send.onclick = newMessage;
     }
 
@@ -98,7 +99,7 @@ module Chat {
     function newMessage() {
         var message = CHAT_INPUT.value;
 
-            // don't send empty messages
+        // don't send empty messages
         if ( message.length === 0 ) {
             return;
         }
@@ -122,6 +123,7 @@ module Chat {
 
         usernamePart.className = 'username';
         usernamePart.innerText = message.username;
+        usernamePart.style.color = getUserColor( message.username );
 
         messagePart.className = 'message';
         messagePart.innerText = message.message;
@@ -137,7 +139,7 @@ module Chat {
      * Show a message saying the given user has joined the chat.
      */
     function userJoined( username: string ) {
-        addToList({ username: username, message: "Joined." });
+        addToList( { username: username, message: "Joined." });
     }
 
 
@@ -145,7 +147,7 @@ module Chat {
      * Show a message saying the given user has left the chat.
      */
     function userLeft( username: string ) {
-        addToList({ username: username, message: "Left." });
+        addToList( { username: username, message: "Left." });
     }
 
 
@@ -162,5 +164,40 @@ module Chat {
      */
     function associateUsername( username: string ) {
         USERNAME = username;
+    }
+
+
+    /**
+     * Get the color associated with the given user (the color is client side, so its going to be different in every client).
+     **/
+    function getUserColor( username: string ) {
+        var color = USERS_COLORS[ username ];
+
+        if ( !color ) {
+            color = generateRandomColor();
+            USERS_COLORS[ username ] = color;
+        }
+
+        return color;
+    }
+
+
+    /**
+     * Generate a somewhat dark color.
+     **/
+    function generateRandomColor() {
+        let red = getRandomInt( 0, 150 );
+        let green = getRandomInt( 0, 150 );
+        let blue = getRandomInt( 0, 150 );
+
+        return `rgb(${ red },${ green },${ blue })`;
+    }
+
+
+    /**
+     * Return a random integer between the given range (inclusive).
+     **/
+    function getRandomInt( min: number, max: number ) {
+        return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
     }
 }
