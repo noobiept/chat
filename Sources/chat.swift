@@ -86,9 +86,10 @@ class Chat: WebSocketService {
             // remove the "M|" part
         let messageIndex = message.index( message.startIndex, offsetBy: 2 )
         let receivedMessage = message.substring( from: messageIndex )
-
+        let time = self.getCurrentTime()
         let username = self.connections[ socket.id ]!.username
-        let sendMessage = "M|\(username)|\(receivedMessage)"
+
+        let sendMessage = "M|\(time)|\(username)|\(receivedMessage)"
 
         self.sendMessageToAll( message: sendMessage, socket: socket )
         self.saveMessage( message: sendMessage )
@@ -132,5 +133,13 @@ class Chat: WebSocketService {
                 connection.socket.send( message: message )
             }
         }
+    }
+
+
+    /**
+     * Return the time (in milliseconds) since 1 january 1970 (unix time).
+     */
+    private func getCurrentTime() -> Double {
+        return Date().timeIntervalSince1970 * 1000
     }
 }

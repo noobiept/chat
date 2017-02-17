@@ -6,6 +6,7 @@ window.onload = function () {
 module Chat {
 
     interface Message {
+        time: number;   // time in milliseconds since 1 january 1970 (unix time).
         message: string;
         username: string;
     }
@@ -85,11 +86,15 @@ module Chat {
      * The server sends a message in the following format: "M|username|message".
      */
     function parseTextMessage( data: string ): Message {
-        var separator = data.indexOf( "|", 2 );
-        var username = data.slice( 2, separator );
-        var message = data.slice( separator + 1 );
+        var timeSeparator = data.indexOf( "|", 2 );
+        var time = data.slice( 2, timeSeparator );
 
-        return { username: username, message: message };
+        var usernameSeparator = data.indexOf( "|", timeSeparator + 1 );
+        var username = data.slice( timeSeparator + 1, usernameSeparator );
+
+        var message = data.slice( usernameSeparator + 1 );
+
+        return { time: parseFloat( time ), username: username, message: message };
     }
 
 
@@ -108,7 +113,7 @@ module Chat {
 
         SOCKET.send( "M|" + message );
         addToList( {
-            message: message, username: USERNAME
+            time: getCurrentTime(), message: message, username: USERNAME
         });
     }
 
@@ -118,8 +123,13 @@ module Chat {
      */
     function addToList( message: Message ) {
         let item = document.createElement( "li" );
+        let timePart = document.createElement( "span" );
         let usernamePart = document.createElement( "span" );
         let messagePart = document.createElement( "span" );
+
+        let date = new Date( message.time );
+        timePart.className = 'time';
+        timePart.innerText = `${ date.getHours() }:${ date.getMinutes() }`;
 
         usernamePart.className = 'username';
         usernamePart.innerText = message.username;
@@ -128,6 +138,7 @@ module Chat {
         messagePart.className = 'message';
         messagePart.innerText = message.message;
 
+        item.appendChild( timePart );
         item.appendChild( usernamePart );
         item.appendChild( messagePart );
 
@@ -139,7 +150,7 @@ module Chat {
      * Show a message saying the given user has joined the chat.
      */
     function userJoined( username: string ) {
-        addToList( { username: username, message: "Joined." });
+        addToList( { time: getCurrentTime(), username: username, message: "Joined." });
     }
 
 
@@ -147,7 +158,7 @@ module Chat {
      * Show a message saying the given user has left the chat.
      */
     function userLeft( username: string ) {
-        addToList( { username: username, message: "Left." });
+        addToList( { time: getCurrentTime(), username: username, message: "Left." });
     }
 
 
@@ -199,5 +210,13 @@ module Chat {
      **/
     function getRandomInt( min: number, max: number ) {
         return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+    }
+
+
+    /**
+     * Return the time (in milliseconds) since 1 january 1970 (unix time).
+     */
+    function getCurrentTime() {
+        return new Date().getTime();
     }
 }

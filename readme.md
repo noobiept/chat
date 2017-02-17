@@ -8,7 +8,7 @@
 ## Client ##
 
 - `"U|(username)"` -- Tells you what is your username.
-- `"M|(username)|(message)"` -- Received a message.
+- `"M|(time)|(username)|(message)"` -- Received a message.
 - `"J|(username)"` -- A user joined the chat.
 - `"L|(username)"` -- A user left the chat.
 
