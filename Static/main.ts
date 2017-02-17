@@ -113,7 +113,7 @@ module Chat {
 
         SOCKET.send( "M|" + message );
         addToList( {
-            time: getCurrentTime(), message: message, username: USERNAME
+            time: Utilities.getCurrentTime(), message: message, username: USERNAME
         });
     }
 
@@ -150,7 +150,7 @@ module Chat {
      * Show a message saying the given user has joined the chat.
      */
     function userJoined( username: string ) {
-        addToList( { time: getCurrentTime(), username: username, message: "Joined." });
+        addToList( { time: Utilities.getCurrentTime(), username: username, message: "Joined." });
     }
 
 
@@ -158,7 +158,7 @@ module Chat {
      * Show a message saying the given user has left the chat.
      */
     function userLeft( username: string ) {
-        addToList( { time: getCurrentTime(), username: username, message: "Left." });
+        addToList( { time: Utilities.getCurrentTime(), username: username, message: "Left." });
     }
 
 
@@ -185,38 +185,10 @@ module Chat {
         var color = USERS_COLORS[ username ];
 
         if ( !color ) {
-            color = generateRandomColor();
+            color = Utilities.generateRandomColor();
             USERS_COLORS[ username ] = color;
         }
 
         return color;
-    }
-
-
-    /**
-     * Generate a somewhat dark color.
-     **/
-    function generateRandomColor() {
-        let red = getRandomInt( 0, 150 );
-        let green = getRandomInt( 0, 150 );
-        let blue = getRandomInt( 0, 150 );
-
-        return `rgb(${ red },${ green },${ blue })`;
-    }
-
-
-    /**
-     * Return a random integer between the given range (inclusive).
-     **/
-    function getRandomInt( min: number, max: number ) {
-        return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
-    }
-
-
-    /**
-     * Return the time (in milliseconds) since 1 january 1970 (unix time).
-     */
-    function getCurrentTime() {
-        return new Date().getTime();
     }
 }
