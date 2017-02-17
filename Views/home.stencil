@@ -11,7 +11,7 @@
         <div id="Chat">
             <ul id="ChatList"></ul>
             <div id="ChatInputContainer">
-                <input id="ChatInput" type="text" placeholder="Write you message here.." />
+                <input id="ChatInput" type="text" placeholder="Write your message here.." />
                 <button id="Send">Send</button>
             </div>
         </div>
