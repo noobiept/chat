@@ -15,6 +15,7 @@
                 <input id="ChatInput" type="text" placeholder="Write your message here.." />
                 <button id="Send">Send</button>
             </div>
+            <div id="Connected">Connected: <span id="ConnectedCount">0</span></div>
         </div>
     </body>
 </html>

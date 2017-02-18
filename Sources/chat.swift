@@ -103,6 +103,9 @@ class Chat: WebSocketService {
         let username = self.connections[ socket.id ]!.username
         socket.send( message: "U|\(username)" )
 
+        let connectedCount = self.connections.count
+        socket.send( message: "C|\(connectedCount)" )
+
             // send the last messages
         for message in self.lastMessages {
             socket.send( message: message )

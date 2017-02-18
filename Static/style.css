@@ -27,6 +27,12 @@ html, body {
     margin: 3px;
 }
 
+#Connected {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .username {
     margin: 0 5px;
 }

@@ -11,17 +11,21 @@ module Chat {
         username: string;
     }
 
+    // read the readme for more information
     const MessageType = {
-        getUsername: "U",  // U|(username)
-        textMessage: "M",  // M|(username)|(message)
-        userJoined: "J",   // J|(username)
-        userLeft: "L"      // L|(username)
+        getUsername: "U",
+        currentUsersCount: "C",
+        textMessage: "M",
+        userJoined: "J",
+        userLeft: "L"
     }
 
 
     var SOCKET: WebSocket;
     var CHAT_LIST: HTMLUListElement;
     var CHAT_INPUT: HTMLInputElement;
+    var CONNECTED: HTMLSpanElement;
+    var CONNECTED_COUNT = 0;
     var USERNAME = '';
     var USERS_COLORS: { [ username: string ]: string } = {};
 
@@ -41,6 +45,11 @@ module Chat {
                     associateUsername( username );
                     break;
 
+                case MessageType.currentUsersCount:
+                    let connectedCount = parseUsersCount( event.data );
+                    addToUsersCount( connectedCount );
+                    break;
+
                 case MessageType.textMessage:
                     var message = parseTextMessage( event.data );
                     addUserMessage( message );
@@ -58,6 +67,7 @@ module Chat {
             }
         };
 
+        CONNECTED = document.getElementById( "ConnectedCount" ) !;
         CHAT_LIST = <HTMLUListElement>document.getElementById( "ChatList" );
         CHAT_INPUT = <HTMLInputElement>document.getElementById( "ChatInput" );
 
@@ -81,6 +91,14 @@ module Chat {
      */
     function parseUsernameMessage( data: string ) {
         return data.slice( 2 );
+    }
+
+
+    /**
+     * Format: "C|(connectedCount)"
+     **/
+    function parseUsersCount( data: string ) {
+        return parseInt( data.slice( 2 ) );
     }
 
 
@@ -168,6 +186,7 @@ module Chat {
      */
     function userJoined( username: string ) {
         addUserMessage( { time: Utilities.getCurrentTime(), username: username, message: "Joined." });
+        addToUsersCount( 1 );
     }
 
 
@@ -176,6 +195,7 @@ module Chat {
      */
     function userLeft( username: string ) {
         addUserMessage( { time: Utilities.getCurrentTime(), username: username, message: "Left." });
+        addToUsersCount( -1 );
     }
 
 
@@ -207,5 +227,14 @@ module Chat {
         }
 
         return color;
+    }
+
+
+    /**
+     * Update the number of currently connected users element (adds to the current value).
+     **/
+    function addToUsersCount( addedValue: number ) {
+        CONNECTED_COUNT += addedValue;
+        CONNECTED.innerText = CONNECTED_COUNT.toString();
     }
 }
