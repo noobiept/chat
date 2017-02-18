@@ -25,4 +25,19 @@ module Utilities {
     export function getCurrentTime() {
         return new Date().getTime();
     }
+
+
+    /**
+     * Fill the string with the given character until it reaches the desired length.
+     **/
+    export function leftPad( str: string, character: string, length: number ) {
+        let diff = length - str.length;
+
+        // see if we need to do anything
+        if ( diff > 0 ) {
+            return character.repeat( diff ) + str;
+        }
+
+        return str;
+    }
 }

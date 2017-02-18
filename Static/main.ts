@@ -142,8 +142,11 @@ module Chat {
         let messagePart = document.createElement( "span" );
 
         let date = new Date( message.time );
+        let hours = Utilities.leftPad( date.getHours().toString(), '0', 2 )
+        let minutes = Utilities.leftPad( date.getMinutes().toString(), '0', 2 );
+
         timePart.className = 'time';
-        timePart.innerText = `${ date.getHours() }:${ date.getMinutes() }`;
+        timePart.innerText = `${ hours }:${ minutes }`;
 
         usernamePart.className = 'username';
         usernamePart.innerText = message.username;

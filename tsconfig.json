@@ -5,7 +5,7 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "strictNullChecks": true,
-        "target": "es5"
+        "target": "es2015"
     },
     "include": [
         "Static/**/*.ts"
