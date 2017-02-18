@@ -43,7 +43,7 @@ module Chat {
 
                 case MessageType.textMessage:
                     var message = parseTextMessage( event.data );
-                    addToList( message );
+                    addUserMessage( message );
                     break;
 
                 case MessageType.userJoined:
@@ -71,6 +71,8 @@ module Chat {
 
         let send = document.getElementById( "Send" ) !;
         send.onclick = newMessage;
+
+        addSystemMessage( "Welcome to the chat!" );
     }
 
 
@@ -112,16 +114,28 @@ module Chat {
         CHAT_INPUT.value = '';
 
         SOCKET.send( "M|" + message );
-        addToList( {
+        addUserMessage( {
             time: Utilities.getCurrentTime(), message: message, username: USERNAME
         });
     }
 
 
     /**
+     * A non-user message.
+     **/
+    function addSystemMessage( text: string ) {
+        let item = document.createElement( "li" );
+        item.className = 'systemMessage';
+        item.innerText = text;
+
+        CHAT_LIST.appendChild( item );
+    }
+
+
+    /**
      * Add a message to the chat list.
      */
-    function addToList( message: Message ) {
+    function addUserMessage( message: Message ) {
         let item = document.createElement( "li" );
         let timePart = document.createElement( "span" );
         let usernamePart = document.createElement( "span" );
@@ -150,7 +164,7 @@ module Chat {
      * Show a message saying the given user has joined the chat.
      */
     function userJoined( username: string ) {
-        addToList( { time: Utilities.getCurrentTime(), username: username, message: "Joined." });
+        addUserMessage( { time: Utilities.getCurrentTime(), username: username, message: "Joined." });
     }
 
 
@@ -158,7 +172,7 @@ module Chat {
      * Show a message saying the given user has left the chat.
      */
     function userLeft( username: string ) {
-        addToList( { time: Utilities.getCurrentTime(), username: username, message: "Left." });
+        addUserMessage( { time: Utilities.getCurrentTime(), username: username, message: "Left." });
     }
 
 
