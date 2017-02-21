@@ -11,6 +11,11 @@ html, body {
     justify-content: space-between;
 }
 
+#ChatList {
+    overflow: auto;
+    height: 100%;
+}
+
 #ChatInputContainer {
     display: flex;
     flex-direction: row;

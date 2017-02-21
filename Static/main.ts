@@ -156,6 +156,8 @@ module Chat {
         }
 
         CHAT_LIST.appendChild( item );
+        checkListClear();
+        scrollChatList();
     }
 
 
@@ -177,6 +179,8 @@ module Chat {
         item.appendChild( messagePart );
 
         CHAT_LIST.appendChild( item );
+        checkListClear();
+        scrollChatList();
 
         return item;
     }
@@ -292,5 +296,27 @@ module Chat {
     function addToUsersCount( addedValue: number ) {
         CONNECTED_COUNT += addedValue;
         CONNECTED.innerText = CONNECTED_COUNT.toString();
+    }
+
+
+    /**
+     * Need to reduce the message list once it gets past a certain limit.
+     **/
+    function checkListClear() {
+        if ( CHAT_LIST.childElementCount > 100 ) {
+
+            // remove 50 in a row
+            while ( CHAT_LIST.childElementCount > 50 ) {
+                CHAT_LIST.firstElementChild.remove();
+            }
+        }
+    }
+
+
+    /**
+     * Scroll the chat list to the bottom (so we can see the last message that was sent).
+     **/
+    function scrollChatList() {
+        CHAT_LIST.scrollTop = CHAT_LIST.scrollHeight;
     }
 }
