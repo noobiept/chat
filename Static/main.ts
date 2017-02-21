@@ -82,10 +82,7 @@ module Chat {
         let send = document.getElementById( "Send" ) !;
         send.onclick = newMessage;
 
-        let welcome = document.createElement( "span" );
-        welcome.innerText = "Welcome to the chat!";
-
-        addSystemMessage( welcome );
+        addSystemMessage( textElement( 'Welcome to the chat!' ) );
     }
 
 
@@ -152,6 +149,8 @@ module Chat {
         let item = document.createElement( "li" );
         item.className = 'systemMessage';
 
+        item.appendChild( textElement( '--- ' ) );
+
         for ( var a = 0; a < elements.length; a++ ) {
             item.appendChild( elements[ a ] );
         }
@@ -164,21 +163,15 @@ module Chat {
      * Add a message to the chat list.
      */
     function addUserMessage( message: Message ) {
-        let item = document.createElement( "li" );
-        let timePart = document.createElement( "span" );
+
+        let timePart = timeElement( message.time );
         let usernamePart = usernameElement( message.username );
+
         let messagePart = document.createElement( "span" );
-
-        let date = new Date( message.time );
-        let hours = Utilities.leftPad( date.getHours().toString(), '0', 2 )
-        let minutes = Utilities.leftPad( date.getMinutes().toString(), '0', 2 );
-
-        timePart.className = 'time';
-        timePart.innerText = `${ hours }:${ minutes }`;
-
         messagePart.className = 'message';
         messagePart.innerText = message.message;
 
+        let item = document.createElement( "li" );
         item.appendChild( timePart );
         item.appendChild( usernamePart );
         item.appendChild( messagePart );
@@ -204,10 +197,42 @@ module Chat {
 
 
     /**
+     * Show a message of a certain time (in the hour/minutes format).
+     **/
+    function timeElement( time: number ) {
+
+        let date = new Date( time );
+        let hours = Utilities.leftPad( date.getHours().toString(), '0', 2 )
+        let minutes = Utilities.leftPad( date.getMinutes().toString(), '0', 2 );
+
+        let timePart = document.createElement( "span" );
+        timePart.className = 'time';
+        timePart.innerText = `${ hours }:${ minutes }`;
+
+        return timePart;
+    }
+
+
+    /**
+     * Create a text element.
+     **/
+    function textElement( text: string ) {
+        let element = document.createElement( 'span' );
+        element.innerText = text;
+
+        return element;
+    }
+
+
+    /**
      * Show a message saying the given user has joined the chat.
      */
     function userJoined( username: string ) {
-        addUserMessage( { time: Utilities.getCurrentTime(), username: username, message: "Joined." });
+        addSystemMessage(
+            timeElement( Utilities.getCurrentTime() ),
+            usernameElement( username ),
+            textElement( 'joined.' )
+        );
         addToUsersCount( 1 );
     }
 
@@ -216,7 +241,11 @@ module Chat {
      * Show a message saying the given user has left the chat.
      */
     function userLeft( username: string ) {
-        addUserMessage( { time: Utilities.getCurrentTime(), username: username, message: "Left." });
+        addSystemMessage(
+            timeElement( Utilities.getCurrentTime() ),
+            usernameElement( username ),
+            textElement( 'left.' )
+        );
         addToUsersCount( -1 );
     }
 
@@ -235,12 +264,10 @@ module Chat {
     function associateUsername( username: string ) {
         USERNAME = username;
 
-        let messagePart = document.createElement( 'span' );
-        messagePart.innerText = 'Your username is:';
-
-        let usernamePart = usernameElement( username );
-
-        addSystemMessage( messagePart, usernamePart );
+        addSystemMessage(
+            textElement( 'Your username is:' ),
+            usernameElement( username )
+        );
     }
 
 
