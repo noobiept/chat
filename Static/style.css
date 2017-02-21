@@ -40,3 +40,7 @@ html, body {
 .time {
     color: rgba(0, 0, 0, 0.6);
 }
+
+.ownMessage {
+    font-weight: bold;
+}

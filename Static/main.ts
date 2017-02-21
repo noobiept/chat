@@ -132,9 +132,12 @@ module Chat {
         CHAT_INPUT.value = '';
 
         SOCKET.send( "M|" + message );
-        addUserMessage( {
+        let li = addUserMessage( {
             time: Utilities.getCurrentTime(), message: message, username: USERNAME
         });
+
+        // style our own messages differently
+        li.classList.add( "ownMessage" );
     }
 
 
@@ -178,6 +181,8 @@ module Chat {
         item.appendChild( messagePart );
 
         CHAT_LIST.appendChild( item );
+
+        return item;
     }
 
 
@@ -212,6 +217,8 @@ module Chat {
      */
     function associateUsername( username: string ) {
         USERNAME = username;
+
+        addSystemMessage( `Your username is: ${ username }` );
     }
 
 
