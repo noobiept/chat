@@ -123,9 +123,10 @@ module Chat {
      */
     function newMessage() {
         var message = CHAT_INPUT.value;
+        var length = message.length;
 
-        // don't send empty messages
-        if ( message.length === 0 ) {
+        // don't send messages outside the accepted range
+        if ( length === 0 || length > 200 ) {
             return;
         }
 

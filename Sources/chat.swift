@@ -32,9 +32,6 @@ class Chat: WebSocketService {
 
         connections[ connection.id ] = Connection( socket: connection, username: username )
 
-            // notify the user what is his username
-        connection.send( message: "U|\(username)" )
-
             // notify the rest of the users that this user joined
         self.sendMessageToAll( message: "J|\(username)", socket: connection )
     }
@@ -59,7 +56,8 @@ class Chat: WebSocketService {
 
     public func received( message: String, from: WebSocketConnection ) {
 
-        if message.characters.count == 0 {
+        let messageCount = message.characters.count
+        if messageCount == 0 || messageCount > 200 {
             return
         }
 
