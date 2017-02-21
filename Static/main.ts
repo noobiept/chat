@@ -82,7 +82,10 @@ module Chat {
         let send = document.getElementById( "Send" ) !;
         send.onclick = newMessage;
 
-        addSystemMessage( "Welcome to the chat!" );
+        let welcome = document.createElement( "span" );
+        welcome.innerText = "Welcome to the chat!";
+
+        addSystemMessage( welcome );
     }
 
 
@@ -145,10 +148,13 @@ module Chat {
     /**
      * A non-user message.
      **/
-    function addSystemMessage( text: string ) {
+    function addSystemMessage( ...elements: HTMLElement[] ) {
         let item = document.createElement( "li" );
         item.className = 'systemMessage';
-        item.innerText = text;
+
+        for ( var a = 0; a < elements.length; a++ ) {
+            item.appendChild( elements[ a ] );
+        }
 
         CHAT_LIST.appendChild( item );
     }
@@ -160,7 +166,7 @@ module Chat {
     function addUserMessage( message: Message ) {
         let item = document.createElement( "li" );
         let timePart = document.createElement( "span" );
-        let usernamePart = document.createElement( "span" );
+        let usernamePart = usernameElement( message.username );
         let messagePart = document.createElement( "span" );
 
         let date = new Date( message.time );
@@ -169,10 +175,6 @@ module Chat {
 
         timePart.className = 'time';
         timePart.innerText = `${ hours }:${ minutes }`;
-
-        usernamePart.className = 'username';
-        usernamePart.innerText = message.username;
-        usernamePart.style.color = getUserColor( message.username );
 
         messagePart.className = 'message';
         messagePart.innerText = message.message;
@@ -184,6 +186,20 @@ module Chat {
         CHAT_LIST.appendChild( item );
 
         return item;
+    }
+
+
+    /**
+     * Create a username element (with the correct color).
+     **/
+    function usernameElement( username: string ) {
+        let usernamePart = document.createElement( "span" );
+
+        usernamePart.className = 'username';
+        usernamePart.innerText = username;
+        usernamePart.style.color = getUserColor( username );
+
+        return usernamePart;
     }
 
 
@@ -219,7 +235,12 @@ module Chat {
     function associateUsername( username: string ) {
         USERNAME = username;
 
-        addSystemMessage( `Your username is: ${ username }` );
+        let messagePart = document.createElement( 'span' );
+        messagePart.innerText = 'Your username is:';
+
+        let usernamePart = usernameElement( username );
+
+        addSystemMessage( messagePart, usernamePart );
     }
 
 
