@@ -23,7 +23,7 @@ module Chat {
 
     var SOCKET: WebSocket;
     var CHAT_LIST: HTMLUListElement;
-    var CHAT_INPUT: HTMLInputElement;
+
     var CONNECTED: HTMLSpanElement;
     var CONNECTED_COUNT = 0;
     var USERNAME = '';
@@ -69,19 +69,8 @@ module Chat {
 
         CONNECTED = document.getElementById( "ConnectedCount" ) !;
         CHAT_LIST = <HTMLUListElement>document.getElementById( "ChatList" );
-        CHAT_INPUT = <HTMLInputElement>document.getElementById( "ChatInput" );
 
-        CHAT_INPUT.onkeyup = function ( event ) {
-
-            // add a new message when the 'enter' key is pressed
-            if ( event.keyCode === 13 ) {
-                newMessage();
-            }
-        };
-
-        let send = document.getElementById( "Send" ) !;
-        send.onclick = newMessage;
-
+        Input.init();
         addSystemMessage( textElement( 'Welcome to the chat!' ) );
     }
 
@@ -118,28 +107,7 @@ module Chat {
     }
 
 
-    /**
-     * A new message was sent by the user. Add to the chat list and send it to the server as well.
-     */
-    function newMessage() {
-        var message = CHAT_INPUT.value;
-        var length = message.length;
 
-        // don't send messages outside the accepted range
-        if ( length === 0 || length > 200 ) {
-            return;
-        }
-
-        CHAT_INPUT.value = '';
-
-        SOCKET.send( "M|" + message );
-        let li = addUserMessage( {
-            time: Utilities.getCurrentTime(), message: message, username: USERNAME
-        });
-
-        // style our own messages differently
-        li.classList.add( "ownMessage" );
-    }
 
 
     /**
@@ -164,7 +132,7 @@ module Chat {
     /**
      * Add a message to the chat list.
      */
-    function addUserMessage( message: Message ) {
+    export function addUserMessage( message: Message ) {
 
         let timePart = timeElement( message.time );
         let usernamePart = usernameElement( message.username );
@@ -318,5 +286,28 @@ module Chat {
      **/
     function scrollChatList() {
         CHAT_LIST.scrollTop = CHAT_LIST.scrollHeight;
+    }
+
+
+    /**
+     * Get the associated username.
+     **/
+    export function getUsername() {
+        return USERNAME;
+    }
+
+
+    /**
+     * Send a text message to the server.
+     **/
+    export function sendTextMessage( message: string ) {
+        SOCKET.send( "M|" + message );
+
+        let li = Chat.addUserMessage( {
+            time: Utilities.getCurrentTime(), message: message, username: Chat.getUsername()
+        });
+
+        // style our own messages differently
+        li.classList.add( "ownMessage" );
     }
 }
