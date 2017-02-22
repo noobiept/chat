@@ -107,9 +107,6 @@ module Chat {
     }
 
 
-
-
-
     /**
      * A non-user message.
      **/
@@ -125,7 +122,7 @@ module Chat {
 
         CHAT_LIST.appendChild( item );
         checkListClear();
-        scrollChatList();
+        checkIfNeedToScroll();
     }
 
 
@@ -148,7 +145,7 @@ module Chat {
 
         CHAT_LIST.appendChild( item );
         checkListClear();
-        scrollChatList();
+        checkIfNeedToScroll();
 
         return item;
     }
@@ -290,6 +287,18 @@ module Chat {
 
 
     /**
+     * Only scroll to the bottom if we're close to the bottom (don't scroll down if someone is reading something above).
+     **/
+    function checkIfNeedToScroll() {
+        let margin = 30;
+
+        if ( CHAT_LIST.scrollTop + CHAT_LIST.clientHeight + margin > CHAT_LIST.scrollHeight ) {
+            scrollChatList();
+        }
+    }
+
+
+    /**
      * Get the associated username.
      **/
     export function getUsername() {
@@ -309,5 +318,8 @@ module Chat {
 
         // style our own messages differently
         li.classList.add( "ownMessage" );
+
+        // scroll to the bottom when its the user that sent a new message
+        scrollChatList();
     }
 }
