@@ -38,6 +38,7 @@ module Input {
             return;
         }
 
+        hideErrorMessage();
         CHAT_INPUT.value = '';
         Chat.sendTextMessage( message );
     }
@@ -58,5 +59,14 @@ module Input {
             ERROR_TOOLTIP.classList.add( 'hidden' );
 
         }, 3000 );
+    }
+
+
+    /**
+     * Hide the error message.
+     **/
+    function hideErrorMessage() {
+        window.clearTimeout( TOOLTIP_TIMEOUT );
+        ERROR_TOOLTIP.classList.add( 'hidden' );
     }
 }
