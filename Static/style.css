@@ -17,6 +17,7 @@ html, body {
 }
 
 #ChatInputContainer {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -36,6 +37,18 @@ html, body {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+#ErrorTooltip {
+    position: absolute;
+    top: -100%;
+    left: 10px;
+    background-color: rgba(200, 0, 0, 0.3);
+    padding: 5px;
+}
+
+.hidden {
+    display: none;
 }
 
 .username {
