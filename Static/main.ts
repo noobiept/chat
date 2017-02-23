@@ -272,7 +272,7 @@ module Chat {
 
             // remove 50 in a row
             while ( CHAT_LIST.childElementCount > 50 ) {
-                CHAT_LIST.firstElementChild.remove();
+                CHAT_LIST.firstElementChild!.remove();
             }
         }
     }
