@@ -128,6 +128,8 @@ module Chat {
         CHAT_LIST.appendChild( item );
         checkListClear();
         checkIfNeedToScroll();
+
+        return item;
     }
 
 
@@ -202,11 +204,16 @@ module Chat {
      * Show a message saying the given user has joined the chat.
      */
     function userJoined( username: string ) {
-        addSystemMessage(
+        let li = addSystemMessage(
             timeElement( Utilities.getCurrentTime() ),
             usernameElement( username ),
             textElement( 'joined.' )
         );
+
+        if ( li ) {
+            li.classList.add( "userJoined" );
+        }
+
         addToUsersCount( 1 );
     }
 
@@ -215,11 +222,16 @@ module Chat {
      * Show a message saying the given user has left the chat.
      */
     function userLeft( username: string ) {
-        addSystemMessage(
+        let li = addSystemMessage(
             timeElement( Utilities.getCurrentTime() ),
             usernameElement( username ),
             textElement( 'left.' )
         );
+
+        if ( li ) {
+            li.classList.add( "userLeft" );
+        }
+
         addToUsersCount( -1 );
     }
 

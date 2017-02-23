@@ -15,14 +15,23 @@ html, body {
     position: absolute;
     top: 0;
     right: 0;
+    margin: 2px;
 }
 
 .hidden {
     display: none;
 }
 
+
+/* --- Chat List --- */
+
+#ChatList {
+    overflow: auto;
+    height: 100%;
+}
+
 .username {
-    margin: 0 5px;
+    margin: 0 8px;
     font-weight: bold;
 }
 
@@ -34,12 +43,12 @@ html, body {
     background-color: rgba(0, 0, 255, 0.05);
 }
 
+.userJoined  {
+    color: darkgreen;
+}
 
-/* --- Chat List --- */
-
-#ChatList {
-    overflow: auto;
-    height: 100%;
+.userLeft  {
+    color: darkred;
 }
 
 
@@ -56,6 +65,7 @@ html, body {
 
 #ChatInput {
     flex-grow: 1;
+    padding: 2px 5px;
 }
 
 #ChatInput, #Send {
