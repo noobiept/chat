@@ -8,6 +8,8 @@
 
 # Messages #
 
+*Note:* &#124; is the pipe character, but isn't being rendered correctly in bitbucket.
+
 ## Client ##
 
 | Message | Description |
