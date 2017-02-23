@@ -14,8 +14,13 @@
             <ul id="ChatList"></ul>
             <div id="ChatInputContainer">
                 <input id="ChatInput" type="text" placeholder="Write your message here.." />
+                <span id="ChatOptionsButton" title="Options">⚙</span>
                 <button id="Send">Send</button>
+
                 <div id="ErrorTooltip" class="hidden"></div>
+                <div id="ChatOptions" class="hidden">
+                    <div>Show only user messages. <input id="ShowOnlyUserMessages" type="checkbox" /></div>
+                </div>
             </div>
             <div id="Connected">Connected: <span id="ConnectedCount">0</span></div>
         </div>

@@ -11,10 +11,39 @@ html, body {
     justify-content: space-between;
 }
 
+#Connected {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.username {
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.time {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.ownMessage {
+    background-color: rgba(0, 0, 255, 0.05);
+}
+
+
+/* --- Chat List --- */
+
 #ChatList {
     overflow: auto;
     height: 100%;
 }
+
+
+/* --- Chat Input --- */
 
 #ChatInputContainer {
     position: relative;
@@ -33,12 +62,6 @@ html, body {
     margin: 3px;
 }
 
-#Connected {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
 #ErrorTooltip {
     position: absolute;
     top: -100%;
@@ -47,19 +70,16 @@ html, body {
     padding: 5px;
 }
 
-.hidden {
-    display: none;
+#ChatOptionsButton {
+    cursor: pointer;
+    margin-top: auto;   /* vertically align the symbol */
+    margin-bottom: auto;
 }
 
-.username {
-    margin: 0 5px;
-    font-weight: bold;
-}
-
-.time {
-    color: rgba(0, 0, 0, 0.6);
-}
-
-.ownMessage {
-    background-color: rgba(0, 0, 255, 0.05);
+#ChatOptions {
+    position: absolute;
+    top: -100%;
+    right: 10px;
+    padding: 5px;
+    background-color: rgb(210, 210, 210);
 }

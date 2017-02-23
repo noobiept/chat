@@ -22,6 +22,19 @@ module Input {
         send.onclick = newMessage;
 
         ERROR_TOOLTIP = document.getElementById( 'ErrorTooltip' ) !;
+
+        let optionsButton = document.getElementById( 'ChatOptionsButton' ) !;
+        let options = document.getElementById( 'ChatOptions' ) !;
+
+        // toggle the options menu on the button click
+        optionsButton.onclick = function () {
+            options.classList.toggle( 'hidden' );
+        };
+
+        let showOnlyUserMessages = <HTMLInputElement>document.getElementById( 'ShowOnlyUserMessages' );
+        showOnlyUserMessages.onchange = function () {
+            Chat.showOnlyUserMessages( showOnlyUserMessages.checked );
+        };
     }
 
 

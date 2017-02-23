@@ -28,6 +28,7 @@ module Chat {
     var CONNECTED_COUNT = 0;
     var USERNAME = '';
     var USERS_COLORS: { [ username: string ]: string } = {};
+    var SHOW_ONLY_USER_MESSAGES = false;
 
 
     /**
@@ -111,6 +112,10 @@ module Chat {
      * A non-user message.
      **/
     function addSystemMessage( ...elements: HTMLElement[] ) {
+        if ( SHOW_ONLY_USER_MESSAGES ) {
+            return;
+        }
+
         let item = document.createElement( "li" );
         item.className = 'systemMessage';
 
@@ -321,5 +326,10 @@ module Chat {
 
         // scroll to the bottom when its the user that sent a new message
         scrollChatList();
+    }
+
+
+    export function showOnlyUserMessages( value: boolean ) {
+        SHOW_ONLY_USER_MESSAGES = value;
     }
 }
