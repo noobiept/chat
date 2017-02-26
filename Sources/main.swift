@@ -18,10 +18,12 @@ router.all( "/static", middleware: StaticFileServer( path: "./Static" ) )
 
 router.get( "/" ) {
     request, response, next in
-    
+
     try response.render( "home.stencil", context: [:] ).end()
 }
 
 
-Kitura.addHTTPServer( onPort: 8000, with: router )
+let serverPort = Int( ProcessInfo.processInfo.environment["PORT"] ?? "8000" ) ?? 8000
+
+Kitura.addHTTPServer( onPort: serverPort, with: router )
 Kitura.run()

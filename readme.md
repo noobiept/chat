@@ -1,3 +1,8 @@
+# Try it out #
+
+[http://chat4321.herokuapp.com/](http://chat4321.herokuapp.com/)
+
+
 # Build #
 
 | Command | Description |
