@@ -11,6 +11,12 @@
 | `tsc -w` | Compile the typescript files. |
 
 
+# Dependencies #
+
+- [kitura](http://www.kitura.io/)
+- [heroku build pack](https://github.com/kylef/heroku-buildpack-swift)
+
+
 # Messages #
 
 *Note:* &#124; is the pipe character, but isn't being rendered correctly in bitbucket.
