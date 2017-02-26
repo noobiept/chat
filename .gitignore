@@ -2,4 +2,3 @@
 /.build
 /Packages
 /node_modules
-/Static/**/*.js

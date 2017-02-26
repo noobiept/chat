@@ -5,9 +5,10 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "strictNullChecks": true,
-        "target": "es2015"
+        "target": "es2015",
+        "outDir": "Static/"
     },
     "include": [
-        "Static/**/*.ts"
+        "Client/**/*.ts"
     ]
 }
