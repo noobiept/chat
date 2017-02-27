@@ -82,8 +82,7 @@ html, body {
 
 #ChatOptionsButton {
     cursor: pointer;
-    margin-top: auto;   /* vertically align the symbol */
-    margin-bottom: auto;
+    margin: auto 5px;   /* the auto is to vertically align the symbol */
 }
 
 #ChatOptions {

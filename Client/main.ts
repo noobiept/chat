@@ -184,6 +184,7 @@ module Chat {
         let timePart = document.createElement( "span" );
         timePart.className = 'time';
         timePart.innerText = `${ hours }:${ minutes }`;
+        timePart.title = date.toLocaleString();
 
         return timePart;
     }
