@@ -82,4 +82,12 @@ namespace Input {
         window.clearTimeout( TOOLTIP_TIMEOUT );
         ERROR_TOOLTIP.classList.add( 'hidden' );
     }
+
+
+    /**
+     * Put the focus on the chat input element.
+     */
+    export function gainFocus() {
+        CHAT_INPUT.focus();
+    }
 }

@@ -65,4 +65,11 @@ var Input;
         window.clearTimeout(TOOLTIP_TIMEOUT);
         ERROR_TOOLTIP.classList.add('hidden');
     }
+    /**
+     * Put the focus on the chat input element.
+     */
+    function gainFocus() {
+        CHAT_INPUT.focus();
+    }
+    Input.gainFocus = gainFocus;
 })(Input || (Input = {}));

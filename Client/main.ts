@@ -71,6 +71,11 @@ namespace Chat {
         CONNECTED = document.getElementById( "ConnectedCount" )!;
         CHAT_LIST = <HTMLUListElement>document.getElementById( "ChatList" );
 
+        // put the focus on the chat input when a key is pressed
+        document.body.onkeypress = function () {
+            Input.gainFocus();
+        };
+
         Input.init();
         addSystemMessage( textElement( 'Welcome to the chat!' ) );
     }
