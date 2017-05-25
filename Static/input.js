@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Deals with the chat input.
  */
