@@ -3,7 +3,7 @@ window.onload = function () {
 };
 
 
-module Chat {
+namespace Chat {
 
     interface Message {
         time: number;   // time in milliseconds since 1 january 1970 (unix time).
@@ -68,7 +68,7 @@ module Chat {
             }
         };
 
-        CONNECTED = document.getElementById( "ConnectedCount" ) !;
+        CONNECTED = document.getElementById( "ConnectedCount" )!;
         CHAT_LIST = <HTMLUListElement>document.getElementById( "ChatList" );
 
         Input.init();
@@ -332,7 +332,7 @@ module Chat {
 
         let li = Chat.addUserMessage( {
             time: Utilities.getCurrentTime(), message: message, username: Chat.getUsername()
-        });
+        } );
 
         // style our own messages differently
         li.classList.add( "ownMessage" );

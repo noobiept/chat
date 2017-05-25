@@ -1,4 +1,4 @@
-module Utilities {
+namespace Utilities {
     /**
      * Generate a somewhat dark color.
      **/
