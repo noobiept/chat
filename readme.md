@@ -10,8 +10,8 @@
 | Command | Description |
 |---------|-------------|
 | `swift package update` | Update all dependencies to latest version. |
-| `swift build && .build/debug/chat` | Build and run the server. |
-| `tsc -w` | Compile the typescript files. |
+| `swift build && .build/debug/chat` or `swift run` | Build and run the server. |
+| `tsc -w` or `npm run ts` | Compile the typescript files. |
 
 
 # Dependencies #
