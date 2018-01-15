@@ -1,1 +1,1 @@
-web: .build/release/chat
+web: chat
