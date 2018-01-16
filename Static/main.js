@@ -23,7 +23,7 @@ var Chat;
      * Initialize the chat.
      */
     function init() {
-        SOCKET = new WebSocket("ws://" + window.location.host + "/chat", "chat");
+        SOCKET = new WebSocket("wss://" + window.location.host + "/chat", "chat");
         SOCKET.onopen = socketReady;
         SOCKET.onmessage = function (event) {
             var type = event.data[0];
