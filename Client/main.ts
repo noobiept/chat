@@ -35,7 +35,14 @@ namespace Chat {
      * Initialize the chat.
      */
     export function init() {
-        SOCKET = new WebSocket( "wss://" + window.location.host + "/chat", "chat" );
+        let protocol = 'wss://';
+
+        // so it also works in 'http' (useful when testing)
+        if ( location.protocol === 'http:' ) {
+            protocol = 'ws://';
+        }
+
+        SOCKET = new WebSocket( protocol + window.location.host + "/chat", "chat" );
         SOCKET.onopen = socketReady;
         SOCKET.onmessage = function ( event: MessageEvent ) {
             var type = event.data[ 0 ];
