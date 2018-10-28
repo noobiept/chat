@@ -5,8 +5,8 @@ pipelines:
             script:
             # install system dependencies
             - apt-get update
-            - apt-get install nodejs
-            - apt-get install npm
+            - apt-get --yes install nodejs
+            - apt-get --yes install npm
 
             # install application dependencies
             - npm install
