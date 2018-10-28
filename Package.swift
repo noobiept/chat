@@ -9,8 +9,7 @@ let package = Package(
     dependencies: [
         .package( url: "https://github.com/IBM-Swift/Kitura.git",                       .upToNextMajor( from: "2.5.0" ) ),
         .package( url: "https://github.com/IBM-Swift/HeliumLogger.git",                 .upToNextMajor( from: "1.7.0" ) ),
-        .package( url: "https://github.com/IBM-Swift/Kitura-WebSocket.git",             .upToNextMajor( from: "2.1.0" ) ),
-        .package( url: "https://github.com/IBM-Swift/Kitura-StencilTemplateEngine.git", .upToNextMajor( from: "1.10.0" ) )
+        .package( url: "https://github.com/IBM-Swift/Kitura-WebSocket.git",             .upToNextMajor( from: "2.1.0" ) )
     ],
     targets: [
         .target(
@@ -18,8 +17,7 @@ let package = Package(
             dependencies: [
                 "Kitura",
                 "HeliumLogger",
-                "Kitura-WebSocket",
-                "KituraStencil"
+                "Kitura-WebSocket"
             ],
             path: "./Sources"
         )
