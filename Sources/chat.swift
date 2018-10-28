@@ -73,7 +73,7 @@ class Chat: WebSocketService {
 
     public func received( message: String, from: WebSocketConnection ) {
 
-        let messageCount = message.characters.count
+        let messageCount = message.count
         if messageCount == 0 || messageCount > 200 {
             return
         }
@@ -100,13 +100,13 @@ class Chat: WebSocketService {
     private func receivedTextMessage( message: String, socket: WebSocketConnection ) {
 
             // confirm we have correct length
-        if message.characters.count < 3 {
+        if message.count < 3 {
             return
         }
 
             // remove the "M|" part
         let messageIndex = message.index( message.startIndex, offsetBy: 2 )
-        let receivedMessage = message.substring( from: messageIndex )
+        let receivedMessage = message[ messageIndex... ]
         let time = self.getCurrentTime()
 
         lockConnections()

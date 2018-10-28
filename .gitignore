@@ -2,3 +2,4 @@
 /.build
 /Packages
 /node_modules
+*.xcodeproj
