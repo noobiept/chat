@@ -7,11 +7,14 @@
 
 # Build #
 
+Requires both `node` and `swift` to be available.
+
 | Command | Description |
 |---------|-------------|
+| `npm install` | Install the client and build dependencies. |
+| `npm run dev` | Compiles and runs both the client and server builds (go to `localhost:8000/` to try it out). |
+| `npm run build` | Builds the release version of the application. |
 | `swift package update` | Update all dependencies to latest version. |
-| `swift build && .build/debug/chat` or `swift run` | Build and run the server. |
-| `tsc -w` or `npm run ts` | Compile the typescript files. |
 
 
 # Dependencies #
