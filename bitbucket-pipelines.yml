@@ -1,0 +1,15 @@
+image: swift:4.2
+pipelines:
+    default:
+        - step:
+            script:
+            # install system dependencies
+            - apt-get update
+            - apt-get install nodejs
+            - apt-get install npm
+
+            # install application dependencies
+            - npm install
+
+            # run the release build
+            - npm run build
