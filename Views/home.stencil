@@ -5,9 +5,9 @@
         <title>Chat</title>
 
         <link rel="stylesheet" type="text/css" href="/static/style.css" />
-        <script src="/static/main.js"></script>
-        <script src="/static/utilities.js"></script>
-        <script src="/static/input.js"></script>
+        <script type="module" src="/static/main.js"></script>
+        <script type="module" src="/static/utilities.js"></script>
+        <script type="module" src="/static/input.js"></script>
     </head>
     <body>
         <div id="Chat">
