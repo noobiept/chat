@@ -3,3 +3,5 @@
 /Packages
 /node_modules
 *.xcodeproj
+/info.txt
+.DS_Store
