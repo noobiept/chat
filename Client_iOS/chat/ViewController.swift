@@ -1,9 +1,9 @@
 import UIKit
 import Starscream
 
-class ViewController: UIViewController, WebSocketDelegate, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
 
-    var socket: WebSocket!
+    var chat: Chat!
     var messages = ["test1", "test2", "test3"]
 
     @IBOutlet weak var messagesTableView: UITableView!
@@ -15,16 +15,8 @@ class ViewController: UIViewController, WebSocketDelegate, UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "wss://chat4321.herokuapp.com/chat")!
-        self.socket = WebSocket(url: url)
-        self.socket.delegate = self
-        self.socket.connect()
-    }
-
-
-    deinit {
-        self.socket.disconnect(forceTimeout: 0)
-        self.socket.delegate = nil
+        self.chat = Chat("wss://chat4321.herokuapp.com/chat")
+        self.chat.delegate = self
     }
     
     
@@ -37,28 +29,18 @@ class ViewController: UIViewController, WebSocketDelegate, UITableViewDataSource
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
     
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("Connected!")
+    func received(message: String) {
+        self.messages.append(message)
+        self.messagesTableView.reloadData()
     }
     
     
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("Disconnected!")
-    }
     
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        print("Received message: \(text)")
-    }
-    
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        
-    }
 }
 
