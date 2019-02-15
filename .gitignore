@@ -1,7 +1,16 @@
 /.vscode
-/.build
-/Packages
-/node_modules
-*.xcodeproj
 /info.txt
 .DS_Store
+
+# server
+/.build
+/Packages
+
+# web client
+/node_modules
+
+# iOS client
+/Client_iOS/Carthage/
+*.xcuserstate
+xcuserdata/
+project.xcworkspace/
