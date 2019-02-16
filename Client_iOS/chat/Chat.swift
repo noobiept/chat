@@ -6,14 +6,13 @@ struct Message {
     var time: Date
     var username: String
     var message: String
+    var isSystem: Bool
 }
 
 
 protocol ChatDelegate: class {
     func setUsername(_ username: String) -> Void
-    func received(_ message: Message) -> Void
-    func userLeft(_ message: Message) -> Void
-    func userJoined(_ message: Message) -> Void
+    func addMessage(_ message: Message) -> Void
     func connected(_ count: Int) -> Void
 }
 
@@ -108,9 +107,9 @@ class Chat: WebSocketDelegate {
         guard let timestamp = Double(split[1]) else { return }
 
         let time = Date(timeIntervalSince1970: timestamp)
-        let message = Message(time: time, username: split[2], message: split[3])
+        let message = Message(time: time, username: split[2], message: split[3], isSystem: false)
 
-        self.delegate.received(message)
+        self.delegate.addMessage(message)
     }
     
     
@@ -119,9 +118,9 @@ class Chat: WebSocketDelegate {
      */
     func userJoined(_ text: String) {
         let split = text.components(separatedBy: "|")
-        let message = Message(time: Date(), username: split[1], message: "joined.")
+        let message = Message(time: Date(), username: split[1], message: "joined.", isSystem: true)
         
-        self.delegate.userJoined(message)
+        self.delegate.addMessage(message)
     }
     
     
@@ -130,8 +129,8 @@ class Chat: WebSocketDelegate {
      */
     func userLeft(_ text: String) {
         let split = text.components(separatedBy: "|")
-        let message = Message(time: Date(), username: split[1], message: "left.")
+        let message = Message(time: Date(), username: split[1], message: "left.", isSystem: true)
         
-        self.delegate.userLeft(message)
+        self.delegate.addMessage(message)
     }
 }

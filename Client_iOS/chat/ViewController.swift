@@ -36,26 +36,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    func received(_ message: Message) {
+    /**
+     * Add a new message to the messages table view.
+     */
+    func addMessage(_ message: Message) {
         self.messages.append(message)
         self.messagesTableView.reloadData()
     }
-    
+        
     
     func setUsername(_ username: String) {
         self.username = username
     }
-    
-    func userLeft(_ message: Message) {
-        self.messages.append(message)
-        self.messagesTableView.reloadData()
-    }
-    
-    func userJoined(_ message: Message) {
-        self.messages.append(message)
-        self.messagesTableView.reloadData()
-    }
-    
+   
+
     func connected(_ count: Int) {
         
     }
