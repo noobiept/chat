@@ -3,14 +3,18 @@ import Starscream
 
 
 struct Message {
-    var time: String
+    var time: Date
     var username: String
     var message: String
 }
 
 
 protocol ChatDelegate: class {
+    func setUsername(_ username: String) -> Void
     func received(_ message: Message) -> Void
+    func userLeft(_ message: Message) -> Void
+    func userJoined(_ message: Message) -> Void
+    func connected(_ count: Int) -> Void
 }
 
 
@@ -74,13 +78,26 @@ class Chat: WebSocketDelegate {
     }
     
     
+    /**
+     * Format: U|(username)
+     */
     func userName(_ text: String) {
+        let split = text.components(separatedBy: "|")
         
+        self.delegate.setUsername(split[1])
     }
     
     
+    /**
+     * Format: C|(connectedCount)
+     */
     func connectedCount(_ text: String) {
+        let split = text.components(separatedBy: "|")
+        let count = Int(split[1])
         
+        if let count = count {
+            self.delegate.connected(count)
+        }
     }
     
     /**
@@ -88,18 +105,33 @@ class Chat: WebSocketDelegate {
      */
     func receivedMessage(_ text: String) {
         let split = text.components(separatedBy: "|")
-        let message = Message(time: split[1], username: split[2], message: split[3])
+        guard let timestamp = Double(split[1]) else { return }
+
+        let time = Date(timeIntervalSince1970: timestamp)
+        let message = Message(time: time, username: split[2], message: split[3])
 
         self.delegate.received(message)
     }
     
     
+    /**
+     * Format: J|(username)
+     */
     func userJoined(_ text: String) {
+        let split = text.components(separatedBy: "|")
+        let message = Message(time: Date(), username: split[1], message: "joined.")
         
+        self.delegate.userJoined(message)
     }
     
     
+    /**
+     * Format: L|(username)
+     */
     func userLeft(_ text: String) {
+        let split = text.components(separatedBy: "|")
+        let message = Message(time: Date(), username: split[1], message: "left.")
         
+        self.delegate.userLeft(message)
     }
 }

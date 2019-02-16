@@ -2,9 +2,10 @@ import UIKit
 import Starscream
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
-
+ 
     var chat: Chat!
     var messages: [Message] = []
+    var username: String?
 
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var connectedCountLabel: UILabel!
@@ -41,6 +42,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
+    func setUsername(_ username: String) {
+        self.username = username
+    }
     
+    func userLeft(_ message: Message) {
+        self.messages.append(message)
+        self.messagesTableView.reloadData()
+    }
+    
+    func userJoined(_ message: Message) {
+        self.messages.append(message)
+        self.messagesTableView.reloadData()
+    }
+    
+    func connected(_ count: Int) {
+        
+    }
 }
 
