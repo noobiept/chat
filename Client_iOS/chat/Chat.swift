@@ -38,6 +38,7 @@ class Chat: WebSocketDelegate {
     
     func websocketDidConnect(socket: WebSocketClient) {
         print("Connected!")
+        self.sendToServer("R")   // signal the server that we're ready
     }
     
     
@@ -93,7 +94,7 @@ class Chat: WebSocketDelegate {
     func connectedCount(_ text: String) {
         let split = text.components(separatedBy: "|")
         let count = Int(split[1])
-        
+
         if let count = count {
             self.delegate.connected(count)
         }
@@ -132,5 +133,21 @@ class Chat: WebSocketDelegate {
         let message = Message(time: Date(), username: split[1], message: "left.", isSystem: true)
         
         self.delegate.addMessage(message)
+    }
+    
+    
+    /**
+     * Send a string to the server (needs to be in a proper format).
+     */
+    func sendToServer(_ text: String) {
+        self.socket.write(string: text)
+    }
+    
+    
+    /**
+     * Send a user message to the server.
+     */
+    func sendMessageToServer(_ message: Message) {
+        self.sendToServer("M|\(message.message)")
     }
 }

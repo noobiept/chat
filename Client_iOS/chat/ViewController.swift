@@ -43,15 +43,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.messages.append(message)
         self.messagesTableView.reloadData()
     }
-        
+    
     
     func setUsername(_ username: String) {
         self.username = username
+        
+        let message = Message(time: Date(), username: username, message: "Welcome to the chat!", isSystem: true)
+        self.addMessage(message)
     }
    
 
     func connected(_ count: Int) {
-        
+        self.connectedCountLabel.text = "Connected: \(count)"
     }
 }
 
