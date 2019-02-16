@@ -2,8 +2,15 @@ import Foundation
 import Starscream
 
 
+struct Message {
+    var time: String
+    var username: String
+    var message: String
+}
+
+
 protocol ChatDelegate: class {
-    func received(message: String) -> Void
+    func received(_ message: Message) -> Void
 }
 
 
@@ -81,11 +88,9 @@ class Chat: WebSocketDelegate {
      */
     func receivedMessage(_ text: String) {
         let split = text.components(separatedBy: "|")
-        let time = split[1]
-        let username = split[2]
-        let message = split[3]
+        let message = Message(time: split[1], username: split[2], message: split[3])
 
-        self.delegate.received(message: message)
+        self.delegate.received(message)
     }
     
     

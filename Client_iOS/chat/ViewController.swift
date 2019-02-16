@@ -4,7 +4,7 @@ import Starscream
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
 
     var chat: Chat!
-    var messages = ["test1", "test2", "test3"]
+    var messages: [Message] = []
 
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var connectedCountLabel: UILabel!
@@ -24,7 +24,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath)
         let message = self.messages[indexPath.row]
         
-        cell.textLabel?.text = message
+        cell.textLabel?.text = message.message
         
         return cell
     }
@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    func received(message: String) {
+    func received(_ message: Message) {
         self.messages.append(message)
         self.messagesTableView.reloadData()
     }
