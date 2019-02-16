@@ -6,6 +6,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var chat: Chat!
     var messages: [Message] = []
     var username: String?
+    var connectedCount = 0
 
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var connectedCountLabel: UILabel!
@@ -45,6 +46,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
+    func userJoined(_ message: Message) {
+        self.connected(self.connectedCount + 1)
+        self.addMessage(message)
+    }
+    
+    
+    func userLeft(_ message: Message) {
+        self.connected(self.connectedCount - 1)
+        self.addMessage(message)
+    }
+    
+    
     func setUsername(_ username: String) {
         self.username = username
         
@@ -53,8 +66,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
    
 
+    /**
+     * Update the number of connected users UI element.
+     */
     func connected(_ count: Int) {
         self.connectedCountLabel.text = "Connected: \(count)"
+        self.connectedCount = count
     }
 }
 

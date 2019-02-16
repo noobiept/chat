@@ -13,6 +13,8 @@ struct Message {
 protocol ChatDelegate: class {
     func setUsername(_ username: String) -> Void
     func addMessage(_ message: Message) -> Void
+    func userJoined(_ message: Message) -> Void
+    func userLeft(_ message: Message) -> Void
     func connected(_ count: Int) -> Void
 }
 
@@ -90,6 +92,7 @@ class Chat: WebSocketDelegate {
     
     /**
      * Format: C|(connectedCount)
+     * Tells us the initial number of connected users. After that the number is managed based on the user left/joined messages we receive.
      */
     func connectedCount(_ text: String) {
         let split = text.components(separatedBy: "|")
@@ -121,7 +124,7 @@ class Chat: WebSocketDelegate {
         let split = text.components(separatedBy: "|")
         let message = Message(time: Date(), username: split[1], message: "joined.", isSystem: true)
         
-        self.delegate.addMessage(message)
+        self.delegate.userJoined(message)
     }
     
     
@@ -132,7 +135,7 @@ class Chat: WebSocketDelegate {
         let split = text.components(separatedBy: "|")
         let message = Message(time: Date(), username: split[1], message: "left.", isSystem: true)
         
-        self.delegate.addMessage(message)
+        self.delegate.userLeft(message)
     }
     
     
