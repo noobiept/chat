@@ -10,6 +10,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var connectedCountLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var inputTextField: UITextField!
@@ -60,6 +61,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func setUsername(_ username: String) {
         self.username = username
+        self.usernameLabel.text = username
         
         let message = Message(time: Date(), username: username, message: "Welcome to the chat!", isSystem: true)
         self.addMessage(message)
