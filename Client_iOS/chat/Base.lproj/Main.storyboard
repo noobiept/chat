@@ -145,6 +145,7 @@
                     <connections>
                         <outlet property="connectedCountLabel" destination="b38-Tk-lPh" id="B24-U1-7xF"/>
                         <outlet property="inputTextField" destination="dAD-LM-ShD" id="ngm-Zb-dac"/>
+                        <outlet property="menuBottomConstraint" destination="pHf-vr-w5q" id="bZ2-lr-0Xt"/>
                         <outlet property="messagesTableView" destination="K3Q-wx-DKX" id="NeM-df-pLR"/>
                         <outlet property="optionsButton" destination="Ufe-ia-Nrg" id="Bwp-a9-ktQ"/>
                         <outlet property="sendButton" destination="AG5-D5-fZC" id="KzZ-np-JAl"/>

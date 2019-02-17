@@ -15,13 +15,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var inputTextField: UITextField!
-
+    @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.chat = Chat("wss://chat4321.herokuapp.com/chat")
         self.chat.delegate = self
         self.inputTextField.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
 
@@ -110,6 +114,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let count = text.count + string.count - range.length
 
         return count <= self.inputLength
+    }
+    
+    
+    /**
+     * Re-position the bottom menu to accomodate for the space the keyboard will use.
+     */
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.menuBottomConstraint.constant = -keyboardSize.height + view.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    
+    /**
+     * Reset the menu position when the keyboard is hidden.
+     */
+    @objc func keyboardWillHide(notification: Notification) {
+        if let _ = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.menuBottomConstraint.constant = 0
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
     }
 }
 
