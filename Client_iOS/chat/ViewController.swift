@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.username = username
         self.usernameLabel.text = username
 
-        let message = Message(time: Date(), username: username, message: "Welcome to the chat!", isSystem: true)
+        let message = Message(time: Date(), username: username, message: "Welcome to the chat!", type: .user)
         self.addMessage(message)
     }
 
@@ -93,7 +93,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
            let username = self.username,
            message.count > 0 && message.count <= 200 {
 
-            let message = Message(time: Date(), username: username, message: message, isSystem: false)
+            let message = Message(time: Date(), username: username, message: message, type: .user)
 
             self.chat.sendMessageToServer(message)
             self.addMessage(message)

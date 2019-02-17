@@ -1,6 +1,11 @@
 import UIKit
 
+
 class MessageCell: UITableViewCell {
+    
+    static let userColor = UIColor.purple.withAlphaComponent(0.1)
+    static let joinedColor = UIColor.green.withAlphaComponent(0.1)
+    static let leftColor = UIColor.red.withAlphaComponent(0.1)
     
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var timeLabel: UILabel!
@@ -31,5 +36,24 @@ class MessageCell: UITableViewCell {
         self.timeLabel.text = timeString
         self.usernameLabel.text = message.username
         self.messageLabel.text = message.message
+        
+        // change the background color based on the type of message
+        var color: UIColor? = nil
+        
+        switch message.type {
+        case .joined:
+            color = MessageCell.joinedColor
+
+        case .left:
+            color = MessageCell.leftColor
+            
+        case .user:
+            color = MessageCell.userColor
+            
+        default:
+            color = nil
+        }
+        
+        self.contentView.backgroundColor = color
     }
 }

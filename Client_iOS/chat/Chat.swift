@@ -2,13 +2,19 @@ import Foundation
 import Starscream
 
 
+enum MessageType {
+    case user       // our own messages
+    case otherUsers // other user messages
+    case joined     // a user has joined the chat
+    case left       // a user has left the chat
+}
+
 struct Message {
     var time: Date
     var username: String
     var message: String
-    var isSystem: Bool
+    var type: MessageType
 }
-
 
 protocol ChatDelegate: class {
     func setUsername(_ username: String) -> Void
@@ -111,7 +117,7 @@ class Chat: WebSocketDelegate {
         guard let timestamp = Double(split[1]) else { return }
 
         let time = Date(timeIntervalSince1970: timestamp)
-        let message = Message(time: time, username: split[2], message: split[3], isSystem: false)
+        let message = Message(time: time, username: split[2], message: split[3], type: .otherUsers)
 
         self.delegate.addMessage(message)
     }
@@ -122,7 +128,7 @@ class Chat: WebSocketDelegate {
      */
     func userJoined(_ text: String) {
         let split = text.components(separatedBy: "|")
-        let message = Message(time: Date(), username: split[1], message: "joined.", isSystem: true)
+        let message = Message(time: Date(), username: split[1], message: "joined.", type: .joined)
         
         self.delegate.userJoined(message)
     }
@@ -133,7 +139,7 @@ class Chat: WebSocketDelegate {
      */
     func userLeft(_ text: String) {
         let split = text.components(separatedBy: "|")
-        let message = Message(time: Date(), username: split[1], message: "left.", isSystem: true)
+        let message = Message(time: Date(), username: split[1], message: "left.", type: .left)
         
         self.delegate.userLeft(message)
     }
