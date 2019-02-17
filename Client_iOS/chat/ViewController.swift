@@ -1,8 +1,9 @@
 import UIKit
 import Starscream
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
- 
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ChatDelegate {
+
+    let inputLength = 200   // maximum string length we can accept for a message
     var chat: Chat!
     var messages: [Message] = []
     var username: String?
@@ -14,30 +15,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var inputTextField: UITextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.chat = Chat("wss://chat4321.herokuapp.com/chat")
         self.chat.delegate = self
+        self.inputTextField.delegate = self
     }
-    
-    
+
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
         let message = self.messages[indexPath.row]
-        
+
         cell.update(message)
-        
+
         return cell
     }
-    
-    
+
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
-    
-    
+
+
     /**
      * Add a new message to the messages table view.
      */
@@ -45,28 +47,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.messages.append(message)
         self.messagesTableView.reloadData()
     }
-    
-    
+
+
     func userJoined(_ message: Message) {
         self.connected(self.connectedCount + 1)
         self.addMessage(message)
     }
-    
-    
+
+
     func userLeft(_ message: Message) {
         self.connected(self.connectedCount - 1)
         self.addMessage(message)
     }
-    
-    
+
+
     func setUsername(_ username: String) {
         self.username = username
         self.usernameLabel.text = username
-        
+
         let message = Message(time: Date(), username: username, message: "Welcome to the chat!", isSystem: true)
         self.addMessage(message)
     }
-   
+
 
     /**
      * Update the number of connected users UI element.
@@ -74,6 +76,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func connected(_ count: Int) {
         self.connectedCountLabel.text = "Connected: \(count)"
         self.connectedCount = count
+    }
+
+
+    /**
+     * Deal with the user input.
+     */
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let message = textField.text
+
+        if let message = message,
+           let username = self.username,
+           message.count > 0 && message.count <= 200 {
+
+            let message = Message(time: Date(), username: username, message: message, isSystem: false)
+
+            self.chat.sendMessageToServer(message)
+            self.addMessage(message)
+
+            textField.text = "" // clear the input after every new message
+        }
+
+        self.inputTextField.resignFirstResponder()
+        return true
+    }
+
+
+    /**
+     * Limit the input to the maximum length that is accepted by the server.
+     */
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let count = text.count + string.count - range.length
+
+        return count <= self.inputLength
     }
 }
 
