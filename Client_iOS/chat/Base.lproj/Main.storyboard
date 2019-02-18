@@ -161,7 +161,7 @@
         <!--Options-->
         <scene sceneID="nVA-pf-hHH">
             <objects>
-                <tableViewController id="E0m-JT-wlR" sceneMemberID="viewController">
+                <tableViewController id="E0m-JT-wlR" customClass="OptionsTableViewController" customModule="chat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7do-bu-Iwj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -233,6 +233,10 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyk-eQ-Xkm">
                                                     <rect key="frame" x="20" y="5" width="106" height="33.5"/>
                                                     <state key="normal" title="Project website"/>
+                                                    <connections>
+                                                        <action selector="openWebsite:" destination="bq1-wY-HAz" eventType="touchUpInside" id="B9s-pK-6cK"/>
+                                                        <action selector="openWebsite:" destination="E0m-JT-wlR" eventType="touchUpInside" id="McP-f9-rmW"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -253,6 +257,7 @@
                     <navigationItem key="navigationItem" title="Options" id="xTk-dQ-Wp1"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mbe-hs-lEm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="bq1-wY-HAz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1868" y="-147.07646176911544"/>
         </scene>
