@@ -6,7 +6,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let inputLength = 200   // maximum string length we can accept for a message
     let scrollMargin = 300  // margin from the bottom where we scroll into view on new messages
     let maxMessages = 100   // maximum number of messages we keep track of in the table view
-    
+
     var chat: Chat!
     var messages: [Message] = []
     var username: String?
@@ -18,14 +18,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var optionsButton: UIButton!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.chat = Chat("wss://chat4321.herokuapp.com/chat")
         self.chat.delegate = self
         self.inputTextField.delegate = self
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -52,12 +52,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func addMessage(_ message: Message) {
         self.messages.append(message)
         self.clearMessageListIfNeeded()
-        
+
         self.messagesTableView.reloadData()
         self.scrollIfNeeded()
     }
-    
-    
+
+
     /**
      * Only keep a certain number of messages in the table view.
      * Once we reach the limit clear a few of them.
@@ -70,8 +70,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.messages.removeSubrange(0..<half)
         }
     }
-    
-    
+
+
     /**
      * Scroll to the bottom if we're within the margin off the bottom, so you can see the new messages imediately.
      * If above that margin, don't scroll to let the user read older messages.
@@ -82,13 +82,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let distanceFromBottom = self.messagesTableView.contentSize.height - self.messagesTableView.contentOffset.y
 
         let diff = distanceFromBottom - frameHeight
-        
+
         if diff >= 0 && diff < margin {
             self.scrollToBottom()
         }
     }
 
-    
+
     /**
      * Scroll to the last message (so its readable).
      */
@@ -97,7 +97,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let lastIndex = IndexPath(row: lastRow, section: 0)
         self.messagesTableView.scrollToRow(at: lastIndex, at: .bottom, animated: false)
     }
-    
+
 
     func userJoined(_ message: Message) {
         self.connected(self.connectedCount + 1)
@@ -161,19 +161,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         return count <= self.inputLength
     }
-    
-    
+
+
     /**
      * Re-position the bottom menu to accomodate for the space the keyboard will use.
      */
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.menuBottomConstraint.constant = -keyboardSize.height + view.safeAreaInsets.bottom
-            
+
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
             })
-            
+
             UIView.animate(
                 withDuration: 0.5,
                 animations: {
@@ -186,15 +186,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             )
         }
     }
-    
-    
+
+
     /**
      * Reset the menu position when the keyboard is hidden.
      */
     @objc func keyboardWillHide(notification: Notification) {
         if let _ = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.menuBottomConstraint.constant = 0
-            
+
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
             })
