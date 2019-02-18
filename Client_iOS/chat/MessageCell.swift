@@ -53,7 +53,7 @@ class MessageCell: UITableViewCell {
         default:
             color = nil
         }
-        
+
         self.contentView.backgroundColor = color
     }
 }

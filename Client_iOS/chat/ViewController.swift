@@ -4,7 +4,7 @@ import Starscream
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ChatDelegate {
 
     let inputLength = 200   // maximum string length we can accept for a message
-    let scrollMargin = 100  // margin from the bottom where we scroll into view on new messages
+    let scrollMargin = 300  // margin from the bottom where we scroll into view on new messages
     let maxMessages = 100   // maximum number of messages we keep track of in the table view
     
     var chat: Chat!
@@ -80,8 +80,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let margin = CGFloat(self.scrollMargin)
         let frameHeight = self.messagesTableView.frame.height
         let distanceFromBottom = self.messagesTableView.contentSize.height - self.messagesTableView.contentOffset.y
+
+        let diff = distanceFromBottom - frameHeight
         
-        if distanceFromBottom - frameHeight < margin {
+        if diff >= 0 && diff < margin {
             self.scrollToBottom()
         }
     }
