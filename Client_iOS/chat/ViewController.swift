@@ -46,12 +46,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     /**
      * Add a new message to the messages table view.
+     * Scroll to the bottom if we're within the margin off the bottom, so you can see the new messages imediately.
+     * If above that margin, don't scroll to let the user read older messages.
      */
     func addMessage(_ message: Message) {
         self.messages.append(message)
         self.messagesTableView.reloadData()
+        
+        let margin = CGFloat(100)
+        let frameHeight = self.messagesTableView.frame.height
+        let distanceFromBottom = self.messagesTableView.contentSize.height - self.messagesTableView.contentOffset.y
+        
+        if distanceFromBottom - frameHeight < margin {
+            self.scrollToBottom()
+        }
     }
 
+    
+    /**
+     * Scroll to the last message (so its readable).
+     */
+    func scrollToBottom() {
+        let lastRow = self.messagesTableView.numberOfRows(inSection: 0) - 1
+        let lastIndex = IndexPath(row: lastRow, section: 0)
+        self.messagesTableView.scrollToRow(at: lastIndex, at: .bottom, animated: false)
+    }
+    
 
     func userJoined(_ message: Message) {
         self.connected(self.connectedCount + 1)
@@ -127,6 +147,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
             })
+            
+            UIView.animate(
+                withDuration: 0.5,
+                animations: {
+                    self.view.layoutIfNeeded()
+                },
+                completion: {
+                    (_) in
+                    self.scrollToBottom()
+                }
+            )
         }
     }
     
