@@ -13,7 +13,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var connectedCountLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var optionsButton: UIButton!
-    @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     
