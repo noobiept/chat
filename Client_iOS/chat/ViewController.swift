@@ -4,6 +4,9 @@ import Starscream
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ChatDelegate {
 
     let inputLength = 200   // maximum string length we can accept for a message
+    let scrollMargin = 100  // margin from the bottom where we scroll into view on new messages
+    let maxMessages = 100   // maximum number of messages we keep track of in the table view
+    
     var chat: Chat!
     var messages: [Message] = []
     var username: String?
@@ -45,14 +48,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     /**
      * Add a new message to the messages table view.
-     * Scroll to the bottom if we're within the margin off the bottom, so you can see the new messages imediately.
-     * If above that margin, don't scroll to let the user read older messages.
      */
     func addMessage(_ message: Message) {
         self.messages.append(message)
-        self.messagesTableView.reloadData()
+        self.clearMessageListIfNeeded()
         
-        let margin = CGFloat(100)
+        self.messagesTableView.reloadData()
+        self.scrollIfNeeded()
+    }
+    
+    
+    /**
+     * Only keep a certain number of messages in the table view.
+     * Once we reach the limit clear a few of them.
+     */
+    func clearMessageListIfNeeded() {
+        let count = self.messages.count
+
+        if count >= self.maxMessages {
+            let half = self.maxMessages / 2
+            self.messages.removeSubrange(0..<half)
+        }
+    }
+    
+    
+    /**
+     * Scroll to the bottom if we're within the margin off the bottom, so you can see the new messages imediately.
+     * If above that margin, don't scroll to let the user read older messages.
+     */
+    func scrollIfNeeded() {
+        let margin = CGFloat(self.scrollMargin)
         let frameHeight = self.messagesTableView.frame.height
         let distanceFromBottom = self.messagesTableView.contentSize.height - self.messagesTableView.contentOffset.y
         
@@ -110,7 +135,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         if let message = message,
            let username = self.username,
-           message.count > 0 && message.count <= 200 {
+           message.count > 0 && message.count <= self.inputLength {
 
             let message = Message(time: Date(), username: username, message: message, type: .user)
 
