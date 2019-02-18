@@ -116,7 +116,7 @@ class Chat: WebSocketDelegate {
         let split = text.components(separatedBy: "|")
         guard let timestamp = Double(split[1]) else { return }
 
-        let time = Date(timeIntervalSince1970: timestamp)
+        let time = Date(timeIntervalSince1970: timestamp / 1000)
         let message = Message(time: time, username: split[2], message: split[3], type: .otherUsers)
 
         self.delegate.addMessage(message)
