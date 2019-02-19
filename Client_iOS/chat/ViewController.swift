@@ -47,6 +47,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 
     /**
+     * Copy the message to the pasteboard and deselect the cell.
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = self.messages[indexPath.row]
+        UIPasteboard.general.string = message.message
+
+        self.messagesTableView.deselectRow(at: indexPath, animated: true)
+    }
+
+
+    /**
      * Add a new message to the messages table view.
      */
     func addMessage(_ message: Message) {
