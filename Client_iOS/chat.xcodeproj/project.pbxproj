@@ -66,8 +66,8 @@
 		0954B17E2216E35200386D76 /* chat */ = {
 			isa = PBXGroup;
 			children = (
-				09DE281D221C6BE000A89F98 /* Views */,
 				09DE281C221C6BB200A89F98 /* Storyboards */,
+				09DE281D221C6BE000A89F98 /* Views */,
 				09DE281B221C6B8F00A89F98 /* Models */,
 				09DE281A221C6B3E00A89F98 /* Controllers */,
 				0954B17F2216E35200386D76 /* AppDelegate.swift */,

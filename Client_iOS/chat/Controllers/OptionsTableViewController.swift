@@ -1,11 +1,13 @@
 import UIKit
 
+
 class OptionsTableViewController: UITableViewController {
 
     weak var delegate: OptionsDelegate?
 
     @IBOutlet weak var joinLeftSwitch: UISwitch!
     @IBOutlet weak var usernameSwitch: UISwitch!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,17 +20,21 @@ class OptionsTableViewController: UITableViewController {
         }
     }
 
-    @IBAction func openWebsite(_ sender: Any) {
-        let url = URL(string: "https://bitbucket.org/drk4/chat/")!
-        UIApplication.shared.open(url)
+
+    /**
+     * Open the project's website on the browser.
+     */
+    @IBAction func openWebsite( _ sender: Any ) {
+        let url = URL( string: "https://bitbucket.org/drk4/chat/" )!
+        UIApplication.shared.open( url )
     }
 
 
     /**
      * Save the options as we move away from the options screen.
      */
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewWillDisappear( _ animated: Bool ) {
+        super.viewWillDisappear( animated )
 
         if self.isMovingFromParent {
             let options = Options(
@@ -36,7 +42,7 @@ class OptionsTableViewController: UITableViewController {
                 showUsernameInMessages: self.usernameSwitch.isOn
             )
 
-            self.delegate?.updateOptions(options)
+            self.delegate?.updateOptions( options )
         }
     }
 }

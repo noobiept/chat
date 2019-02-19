@@ -3,7 +3,7 @@ import Foundation
 
 protocol OptionsDelegate: class {
     func getOptions() -> Options
-    func updateOptions(_ options: Options) -> Void
+    func updateOptions( _ options: Options ) -> Void
 }
 
 

@@ -17,11 +17,11 @@ struct Message {
 }
 
 protocol ChatDelegate: class {
-    func setUsername(_ username: String) -> Void
-    func addMessage(_ message: Message) -> Void
-    func userJoined(_ message: Message) -> Void
-    func userLeft(_ message: Message) -> Void
-    func connected(_ count: Int) -> Void
+    func setUsername( _ username: String ) -> Void
+    func addMessage( _ message: Message ) -> Void
+    func userJoined( _ message: Message ) -> Void
+    func userLeft( _ message: Message ) -> Void
+    func connected( _ count: Int ) -> Void
 }
 
 
@@ -29,34 +29,37 @@ class Chat: WebSocketDelegate {
     var socket: WebSocket
     weak var delegate: ChatDelegate!
     
-    init(_ serverUrl: String) {
-        let url = URL(string: serverUrl)!
+    init( _ serverUrl: String ) {
+        let url = URL( string: serverUrl )!
         
-        self.socket = WebSocket(url: url)
+        self.socket = WebSocket( url: url )
         self.socket.delegate = self
         self.socket.connect()
     }
     
     
     deinit {
-        self.socket.disconnect(forceTimeout: 0)
+        self.socket.disconnect( forceTimeout: 0 )
         self.socket.delegate = nil
     }
     
     
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("Connected!")
-        self.sendToServer("R")   // signal the server that we're ready
+    func websocketDidConnect( socket: WebSocketClient ) {
+        print( "Connected!" )
+        self.sendToServer( "R" )    // signal the server that we're ready
     }
     
     
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("Disconnected!")
+    func websocketDidDisconnect( socket: WebSocketClient, error: Error? ) {
+        print( "Disconnected!" )
     }
     
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        let code = text.prefix(1)
+
+    /**
+     * We received a text message from the server via the websocket. The first character signals what type of message it is.
+     */
+    func websocketDidReceiveMessage( socket: WebSocketClient, text: String ) {
+        let code = text.prefix( 1 )
 
         switch code {
         case "U":
@@ -77,11 +80,10 @@ class Chat: WebSocketDelegate {
         default:
             break
         }
-        
     }
     
     
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+    func websocketDidReceiveData( socket: WebSocketClient, data: Data ) {
         
     }
     
@@ -89,10 +91,10 @@ class Chat: WebSocketDelegate {
     /**
      * Format: U|(username)
      */
-    func userName(_ text: String) {
-        let split = text.components(separatedBy: "|")
+    func userName( _ text: String ) {
+        let split = text.components( separatedBy: "|" )
         
-        self.delegate.setUsername(split[1])
+        self.delegate.setUsername( split[ 1 ] )
     }
     
     
@@ -100,63 +102,64 @@ class Chat: WebSocketDelegate {
      * Format: C|(connectedCount)
      * Tells us the initial number of connected users. After that the number is managed based on the user left/joined messages we receive.
      */
-    func connectedCount(_ text: String) {
-        let split = text.components(separatedBy: "|")
-        let count = Int(split[1])
+    func connectedCount( _ text: String ) {
+        let split = text.components( separatedBy: "|" )
+        let count = Int( split[ 1 ] )
 
         if let count = count {
-            self.delegate.connected(count)
+            self.delegate.connected( count )
         }
     }
-    
+
+
     /**
      * Format: M|(time)|(username)|(message)
      */
-    func receivedMessage(_ text: String) {
-        let split = text.components(separatedBy: "|")
-        guard let timestamp = Double(split[1]) else { return }
+    func receivedMessage( _ text: String ) {
+        let split = text.components( separatedBy: "|" )
+        guard let timestamp = Double( split[ 1 ] ) else { return }
 
-        let time = Date(timeIntervalSince1970: timestamp / 1000)
-        let message = Message(time: time, username: split[2], message: split[3], type: .otherUsers)
+        let time = Date( timeIntervalSince1970: timestamp / 1000 )
+        let message = Message( time: time, username: split[ 2 ], message: split[ 3 ], type: .otherUsers )
 
-        self.delegate.addMessage(message)
+        self.delegate.addMessage( message )
     }
     
     
     /**
      * Format: J|(username)
      */
-    func userJoined(_ text: String) {
-        let split = text.components(separatedBy: "|")
-        let message = Message(time: Date(), username: split[1], message: "joined.", type: .joined)
+    func userJoined( _ text: String ) {
+        let split = text.components( separatedBy: "|" )
+        let message = Message( time: Date(), username: split[ 1 ], message: "joined.", type: .joined )
         
-        self.delegate.userJoined(message)
+        self.delegate.userJoined( message )
     }
     
     
     /**
      * Format: L|(username)
      */
-    func userLeft(_ text: String) {
-        let split = text.components(separatedBy: "|")
-        let message = Message(time: Date(), username: split[1], message: "left.", type: .left)
+    func userLeft( _ text: String ) {
+        let split = text.components( separatedBy: "|" )
+        let message = Message( time: Date(), username: split[ 1 ], message: "left.", type: .left )
         
-        self.delegate.userLeft(message)
+        self.delegate.userLeft( message )
     }
     
     
     /**
      * Send a string to the server (needs to be in a proper format).
      */
-    func sendToServer(_ text: String) {
-        self.socket.write(string: text)
+    func sendToServer( _ text: String ) {
+        self.socket.write( string: text )
     }
     
     
     /**
      * Send a user message to the server.
      */
-    func sendMessageToServer(_ message: Message) {
-        self.sendToServer("M|\(message.message)")
+    func sendMessageToServer( _ message: Message ) {
+        self.sendToServer( "M|\(message.message)" )
     }
 }
