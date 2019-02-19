@@ -15,7 +15,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var connectedCountLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
 
@@ -128,9 +127,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
 
+    /**
+     * Set this user's name. Put the name on the title so the user knows 
+     */
     func setUsername(_ username: String) {
         self.username = username
-        self.usernameLabel.text = username
+        self.title = username
 
         let message = Message(time: Date(), username: username, message: "Welcome to the chat!", type: .user)
         self.addMessage(message)
