@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var messages: [Message] = []
     var username: String?
     var connectedCount = 0
-    var options = Options()
+    var options = Options.load()
 
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var connectedCountLabel: UILabel!
@@ -257,5 +257,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func updateOptions( _ options: Options ) {
         self.options = options
         self.messagesTableView.reloadData()
+
+        Options.save( options )
     }
 }
