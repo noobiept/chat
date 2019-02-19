@@ -3,8 +3,7 @@ import Foundation
 
 protocol OptionsDelegate: class {
     func getOptions() -> Options
-    func updateShowJoinLeft(_ value: Bool) -> Void
-    func updateShowUsername(_ value: Bool) -> Void
+    func updateOptions(_ options: Options) -> Void
 }
 
 

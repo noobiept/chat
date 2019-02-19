@@ -73,6 +73,7 @@
                                             <outlet property="stackView" destination="tLh-DD-OvZ" id="MDc-PB-6fm"/>
                                             <outlet property="timeLabel" destination="5Ph-o0-Mwz" id="8j4-M7-Jbf"/>
                                             <outlet property="usernameLabel" destination="kjb-Jt-2jw" id="MHQ-ng-6dD"/>
+                                            <outlet property="usernameStackView" destination="lvR-qb-pW5" id="etD-Xk-vXf"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

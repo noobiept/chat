@@ -6,8 +6,9 @@ class MessageCell: UITableViewCell {
     static let userColor = UIColor.purple.withAlphaComponent(0.1)
     static let joinedColor = UIColor.green.withAlphaComponent(0.1)
     static let leftColor = UIColor.red.withAlphaComponent(0.1)
-    
+
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var usernameStackView: UIStackView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
@@ -25,18 +26,18 @@ class MessageCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     
-    func update(_ message: Message) {
+    func update(_ message: Message, _ showUsername: Bool) {
         let timeString = self.dateFormatter.string(from: message.time)
         
         self.timeLabel.text = timeString
         self.usernameLabel.text = message.username
         self.messageLabel.text = message.message
-        
+
+        self.usernameStackView.isHidden = !showUsername
+
         // change the background color based on the type of message
         var color: UIColor? = nil
         

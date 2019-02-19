@@ -16,9 +16,6 @@ class OptionsTableViewController: UITableViewController {
             self.joinLeftSwitch.isOn = options.showJoinLeftMessages
             self.usernameSwitch.isOn = options.showUsernameInMessages
         }
-
-        self.joinLeftSwitch.addTarget(self, action: #selector(self.joinLeftChange), for: .valueChanged)
-        self.usernameSwitch.addTarget(self, action: #selector(self.usernameChange), for: .valueChanged)
     }
 
     @IBAction func openWebsite(_ sender: Any) {
@@ -27,11 +24,19 @@ class OptionsTableViewController: UITableViewController {
     }
 
 
-    @objc func joinLeftChange(sender: UISwitch) {
-        self.delegate?.updateShowJoinLeft(sender.isOn)
-    }
+    /**
+     * Save the options as we move away from the options screen.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
 
-    @objc func usernameChange(sender: UISwitch) {
-        self.delegate?.updateShowUsername(sender.isOn)
+        if self.isMovingFromParent {
+            let options = Options(
+                showJoinLeftMessages: self.joinLeftSwitch.isOn,
+                showUsernameInMessages: self.usernameSwitch.isOn
+            )
+
+            self.delegate?.updateOptions(options)
+        }
     }
 }

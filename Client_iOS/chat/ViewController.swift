@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
         let message = self.messages[indexPath.row]
 
-        cell.update(message)
+        cell.update(message, self.options.showUsernameInMessages)
 
         return cell
     }
@@ -101,13 +101,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func userJoined(_ message: Message) {
         self.connected(self.connectedCount + 1)
-        self.addMessage(message)
+
+        if self.options.showJoinLeftMessages {
+            self.addMessage(message)
+        }
     }
 
 
     func userLeft(_ message: Message) {
         self.connected(self.connectedCount - 1)
-        self.addMessage(message)
+
+        if self.options.showJoinLeftMessages {
+            self.addMessage(message)
+        }
     }
 
 
@@ -210,18 +216,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
 
-    func updateShowJoinLeft(_ value: Bool) {
-        self.options.showJoinLeftMessages = value
-    }
-
-
-    func updateShowUsername(_ value: Bool) {
-        self.options.showUsernameInMessages = value
-    }
-
-
     func getOptions() -> Options {
         return self.options
+    }
+
+
+    func updateOptions(_ options: Options) {
+        self.options = options
+        self.messagesTableView.reloadData()
     }
 }
 
