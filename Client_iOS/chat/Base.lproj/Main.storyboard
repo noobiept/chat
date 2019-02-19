@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tLh-DD-OvZ">
-                                                    <rect key="frame" x="5" y="5" width="404" height="59.5"/>
+                                                    <rect key="frame" x="5" y="5" width="365" height="59.5"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lvR-qb-pW5">
                                                             <rect key="frame" x="0.0" y="0.0" width="80" height="59.5"/>
@@ -53,7 +53,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ppr-dC-JDc">
-                                                            <rect key="frame" x="80" y="0.0" width="324" height="59.5"/>
+                                                            <rect key="frame" x="80" y="0.0" width="285" height="59.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -137,7 +137,7 @@
                     <navigationItem key="navigationItem" id="hyo-sQ-9nW">
                         <barButtonItem key="rightBarButtonItem" title="Options" id="Uxr-NB-KCo">
                             <connections>
-                                <segue destination="E0m-JT-wlR" kind="show" id="4Pd-Zp-IOF"/>
+                                <segue destination="E0m-JT-wlR" kind="show" identifier="Options" id="4Pd-Zp-IOF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -250,6 +250,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Options" id="xTk-dQ-Wp1"/>
+                    <connections>
+                        <outlet property="joinLeftSwitch" destination="ms7-Sz-Fet" id="RKs-4F-wiN"/>
+                        <outlet property="usernameSwitch" destination="dYW-EF-BhZ" id="aHG-ED-Yox"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mbe-hs-lEm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bq1-wY-HAz" userLabel="Exit" sceneMemberID="exit"/>

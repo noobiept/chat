@@ -16,6 +16,7 @@
 		09B2F50E2216FD4800A7BEEA /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B2F50D2216FD4800A7BEEA /* Starscream.framework */; };
 		09B2F511221725F600A7BEEA /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2F510221725F600A7BEEA /* Chat.swift */; };
 		09DDD2DA2218BFD2003D7EB0 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDD2D92218BFD2003D7EB0 /* MessageCell.swift */; };
+		09FFE4F4221C1FDF00622483 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FFE4F3221C1FDF00622483 /* Options.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		09B2F50D2216FD4800A7BEEA /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		09B2F510221725F600A7BEEA /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		09DDD2D92218BFD2003D7EB0 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		09FFE4F3221C1FDF00622483 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				09665613221B3E4600E3D729 /* OptionsTableViewController.swift */,
 				0954B17F2216E35200386D76 /* AppDelegate.swift */,
 				0954B1812216E35200386D76 /* ViewController.swift */,
+				09FFE4F3221C1FDF00622483 /* Options.swift */,
 				0954B1832216E35200386D76 /* Main.storyboard */,
 				09DDD2D92218BFD2003D7EB0 /* MessageCell.swift */,
 				0954B1862216E35200386D76 /* Assets.xcassets */,
@@ -175,6 +178,7 @@
 				0954B1822216E35200386D76 /* ViewController.swift in Sources */,
 				09DDD2DA2218BFD2003D7EB0 /* MessageCell.swift in Sources */,
 				09B2F511221725F600A7BEEA /* Chat.swift in Sources */,
+				09FFE4F4221C1FDF00622483 /* Options.swift in Sources */,
 				0954B1802216E35200386D76 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

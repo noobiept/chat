@@ -1,7 +1,7 @@
 import UIKit
 import Starscream
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ChatDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ChatDelegate, OptionsDelegate {
 
     let inputLength = 200   // maximum string length we can accept for a message
     let scrollMargin = 300  // margin from the bottom where we scroll into view on new messages
@@ -11,6 +11,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var messages: [Message] = []
     var username: String?
     var connectedCount = 0
+    var options = Options()
 
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var connectedCountLabel: UILabel!
@@ -198,6 +199,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.view.layoutIfNeeded()
             })
         }
+    }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Options" {
+            let optionsTableView = segue.destination as! OptionsTableViewController
+            optionsTableView.delegate = self
+        }
+    }
+
+
+    func updateShowJoinLeft(_ value: Bool) {
+        self.options.showJoinLeftMessages = value
+    }
+
+
+    func updateShowUsername(_ value: Bool) {
+        self.options.showUsernameInMessages = value
+    }
+
+
+    func getOptions() -> Options {
+        return self.options
     }
 }
 
