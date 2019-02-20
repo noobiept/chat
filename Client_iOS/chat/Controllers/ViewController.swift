@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.networkActivity( true )
         self.chat = Chat( "wss://chat4321.herokuapp.com/chat" )
         self.chat.delegate = self
         self.inputTextField.delegate = self
@@ -144,6 +145,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         let message = Message( time: Date(), username: username, message: "Welcome to the chat!", type: .user )
         self.addMessage( message )
+        self.networkActivity( false )   // only when we receive our username is that we're ready to start sending messages, etc
     }
 
 
@@ -259,5 +261,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.messagesTableView.reloadData()
 
         Options.save( options )
+    }
+
+
+    /**
+     * Show a loading indicator in case of long network activity (for example, when initially connecting the websocket and getting the username).
+     */
+    func networkActivity( _ active: Bool ) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = active
     }
 }
