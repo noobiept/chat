@@ -7,20 +7,19 @@
 
 # Build #
 
-Requires both `node` and `swift` to be available.
+Requires:
+
+- `xcode` for the iOS client.
+- `node` for the web client.
+- `swift` for the server section.
 
 | Command | Description |
 |---------|-------------|
-| `npm install` | Install the client and build dependencies. |
-| `npm run dev` | Compiles and runs both the client and server builds (go to `localhost:8000/` to try it out). |
-| `npm run build` | Builds the release version of the application. |
-| `swift package update` | Update all dependencies to latest version. |
+| `npm install` | Install the web client and build dependencies. |
+| `npm run dev` | Compiles and runs both the web client and server builds (go to `localhost:8000/` to try it out). |
+| `npm run build` | Builds the release version of the server application. |
 
-
-# Dependencies #
-
-- [kitura](http://www.kitura.io/)
-- [heroku build pack](https://github.com/kylef/heroku-buildpack-swift)
+Open `/Client_iOS/chat.xcodeproj` to check the iOS client project.
 
 
 # Messages #
