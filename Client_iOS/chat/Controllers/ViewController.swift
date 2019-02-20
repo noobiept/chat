@@ -201,13 +201,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             UIView.animate(
                 withDuration: 0.5,
-                animations: {
-                    self.view.layoutIfNeeded()
-                }
-            )
-
-            UIView.animate(
-                withDuration: 0.5,
+                delay: 0,
+                options: [ .curveEaseOut ],
                 animations: {
                     self.view.layoutIfNeeded()
                 },
@@ -229,6 +224,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             UIView.animate(
                 withDuration: 0.5,
+                delay: 0,
+                options: [ .curveEaseOut ],
                 animations: {
                     self.view.layoutIfNeeded()
                 }
