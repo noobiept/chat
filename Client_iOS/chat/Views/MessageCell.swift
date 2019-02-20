@@ -41,6 +41,7 @@ class MessageCell: UITableViewCell {
         self.messageLabel.text = message.message
 
         self.usernameStackView.isHidden = !showUsername
+        self.usernameLabel.textColor = getUserColor( message.username )
 
         // change the background color based on the type of message
         var color: UIColor? = nil

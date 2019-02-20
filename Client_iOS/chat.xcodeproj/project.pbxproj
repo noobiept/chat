@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092EB1C5221D79CA00578441 /* UserColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092EB1C4221D79CA00578441 /* UserColors.swift */; };
 		0954B1802216E35200386D76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954B17F2216E35200386D76 /* AppDelegate.swift */; };
 		0954B1822216E35200386D76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954B1812216E35200386D76 /* ViewController.swift */; };
 		0954B1852216E35200386D76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0954B1832216E35200386D76 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		092EB1C4221D79CA00578441 /* UserColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColors.swift; sourceTree = "<group>"; };
 		0954B17C2216E35200386D76 /* chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0954B17F2216E35200386D76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0954B1812216E35200386D76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = chat/Controllers/ViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -91,6 +93,7 @@
 			children = (
 				09B2F510221725F600A7BEEA /* Chat.swift */,
 				09FFE4F3221C1FDF00622483 /* Options.swift */,
+				092EB1C4221D79CA00578441 /* UserColors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			files = (
 				09665614221B3E4600E3D729 /* OptionsTableViewController.swift in Sources */,
 				0954B1822216E35200386D76 /* ViewController.swift in Sources */,
+				092EB1C5221D79CA00578441 /* UserColors.swift in Sources */,
 				09DDD2DA2218BFD2003D7EB0 /* MessageCell.swift in Sources */,
 				09B2F511221725F600A7BEEA /* Chat.swift in Sources */,
 				09FFE4F4221C1FDF00622483 /* Options.swift in Sources */,
