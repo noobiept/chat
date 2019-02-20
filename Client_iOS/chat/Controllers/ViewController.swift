@@ -205,12 +205,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 options: [ .curveEaseOut ],
                 animations: {
                     self.view.layoutIfNeeded()
-                },
-                completion: {
-                    (_) in
-                    self.scrollToBottom()
                 }
             )
+
+            self.scrollToBottom()
         }
     }
 
