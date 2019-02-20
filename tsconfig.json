@@ -8,6 +8,6 @@
         "outDir": "Static/scripts/"
     },
     "include": [
-        "Client/**/*.ts"
+        "Client_web/**/*.ts"
     ]
 }
