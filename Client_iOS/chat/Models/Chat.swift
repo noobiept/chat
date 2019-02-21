@@ -42,7 +42,17 @@ class Chat: WebSocketDelegate {
         self.socket.disconnect( forceTimeout: 0 )
         self.socket.delegate = nil
     }
-    
+
+
+    /**
+     * Attempt to connect again in 5 seconds.
+     */
+    func reconnect() {
+        DispatchQueue.main.asyncAfter( deadline: .now() + .seconds( 5 ), execute: {
+            self.socket.connect()
+        })
+    }
+
     
     func websocketDidConnect( socket: WebSocketClient ) {
         print( "Connected!" )
@@ -52,6 +62,7 @@ class Chat: WebSocketDelegate {
     
     func websocketDidDisconnect( socket: WebSocketClient, error: Error? ) {
         print( "Disconnected!" )
+        self.reconnect()
     }
     
 
