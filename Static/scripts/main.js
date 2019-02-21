@@ -22,6 +22,28 @@ var SHOW_ONLY_USER_MESSAGES = false;
  * Initialize the chat.
  */
 export function init() {
+    connectWebSocket();
+    CONNECTED = document.getElementById("ConnectedCount");
+    CHAT_LIST = document.getElementById("ChatList");
+    // put the focus on the chat input when a key is pressed
+    document.body.onkeypress = function () {
+        Input.gainFocus();
+    };
+    Input.init();
+    addSystemMessage(textElement('Welcome to the chat!'));
+}
+/**
+ * Attempt to reconnect the web socket in 5 seconds.
+ */
+function reconnectWebSocket() {
+    window.setTimeout(() => {
+        connectWebSocket();
+    }, 5000);
+}
+/**
+ * Connect the websocket to the server.
+ */
+function connectWebSocket() {
     let protocol = 'wss://';
     // so it also works in 'http' (useful when testing)
     if (location.protocol === 'http:') {
@@ -29,6 +51,14 @@ export function init() {
     }
     SOCKET = new WebSocket(protocol + window.location.host + "/chat", "chat");
     SOCKET.onopen = socketReady;
+    SOCKET.onclose = function () {
+        console.log('Socket closed');
+        reconnectWebSocket();
+    };
+    SOCKET.onerror = function (event) {
+        console.log(event);
+        reconnectWebSocket();
+    };
     SOCKET.onmessage = function (event) {
         var type = event.data[0];
         switch (type) {
@@ -54,14 +84,6 @@ export function init() {
                 break;
         }
     };
-    CONNECTED = document.getElementById("ConnectedCount");
-    CHAT_LIST = document.getElementById("ChatList");
-    // put the focus on the chat input when a key is pressed
-    document.body.onkeypress = function () {
-        Input.gainFocus();
-    };
-    Input.init();
-    addSystemMessage(textElement('Welcome to the chat!'));
 }
 /**
  * Format: "U|(username)"
