@@ -14,6 +14,7 @@
 		0954B1872216E35200386D76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0954B1862216E35200386D76 /* Assets.xcassets */; };
 		0954B18A2216E35200386D76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0954B1882216E35200386D76 /* LaunchScreen.storyboard */; };
 		09665614221B3E4600E3D729 /* OptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09665613221B3E4600E3D729 /* OptionsTableViewController.swift */; };
+		096BD626223EC7EA0020CF7B /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096BD625223EC7EA0020CF7B /* Starscream.framework */; };
 		09B2F50E2216FD4800A7BEEA /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B2F50D2216FD4800A7BEEA /* Starscream.framework */; };
 		09B2F511221725F600A7BEEA /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2F510221725F600A7BEEA /* Chat.swift */; };
 		09DDD2DA2218BFD2003D7EB0 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDD2D92218BFD2003D7EB0 /* MessageCell.swift */; };
@@ -81,6 +82,7 @@
 		0954B1892216E35200386D76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0954B18B2216E35200386D76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09665613221B3E4600E3D729 /* OptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsTableViewController.swift; path = chat/Controllers/OptionsTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		096BD625223EC7EA0020CF7B /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/watchOS/Starscream.framework; sourceTree = "<group>"; };
 		09B2F50D2216FD4800A7BEEA /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		09B2F510221725F600A7BEEA /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Chat.swift; path = chat/Models/Chat.swift; sourceTree = SOURCE_ROOT; };
 		09DDD2D92218BFD2003D7EB0 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageCell.swift; path = chat/Views/MessageCell.swift; sourceTree = SOURCE_ROOT; };
@@ -112,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				096BD626223EC7EA0020CF7B /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +129,7 @@
 				09E1ECEC223E9003006AB1FC /* watch Extension */,
 				0954B17D2216E35200386D76 /* Products */,
 				09B2F50D2216FD4800A7BEEA /* Starscream.framework */,
+				096BD624223EC7EA0020CF7B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -151,6 +155,14 @@
 				0954B18B2216E35200386D76 /* Info.plist */,
 			);
 			path = chat;
+			sourceTree = "<group>";
+		};
+		096BD624223EC7EA0020CF7B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				096BD625223EC7EA0020CF7B /* Starscream.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		09DE281A221C6B3E00A89F98 /* Controllers */ = {
@@ -260,6 +272,7 @@
 				09E1ECE4223E9003006AB1FC /* Sources */,
 				09E1ECE5223E9003006AB1FC /* Frameworks */,
 				09E1ECE6223E9003006AB1FC /* Resources */,
+				096BD627223EC8570020CF7B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -342,6 +355,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		096BD627223EC8570020CF7B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/watchOS/Starscream.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Starscream.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
 		09B2F50F2216FDB300A7BEEA /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -638,6 +670,10 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XY23NZ3ND6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				INFOPLIST_FILE = "watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -660,6 +696,10 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XY23NZ3ND6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				INFOPLIST_FILE = "watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

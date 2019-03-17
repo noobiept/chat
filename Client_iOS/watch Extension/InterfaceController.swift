@@ -1,16 +1,23 @@
 import WatchKit
 import Foundation
+import Starscream
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, WebSocketDelegate {
 
     @IBOutlet var table: WKInterfaceTable!
+    var socket: WebSocket!
 
 
     override func awake( withContext context: Any? ) {
         super.awake( withContext: context )
 
         self.addTestMessages()
+
+        let url = URL( string: "wss://chat4321.herokuapp.com/chat" )!
+        self.socket = WebSocket( url: url )
+        self.socket.delegate = self
+        self.socket.connect()
     }
 
 
@@ -42,4 +49,19 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+    func websocketDidConnect(socket: WebSocketClient) {
+        print("websocket is connected")
+    }
+
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        print("websocket is disconnected: \(error?.localizedDescription ?? "")")
+    }
+
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        print("got some text: \(text)")
+    }
+
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        print("got some data: \(data.count)")
+    }
 }
