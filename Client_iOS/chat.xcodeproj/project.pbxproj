@@ -27,6 +27,7 @@
 		09E1ECF4223E9003006AB1FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09E1ECF3223E9003006AB1FC /* Assets.xcassets */; };
 		09E1ECF9223E9003006AB1FC /* watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 09E1ECDC223E9002006AB1FC /* watch.app */; };
 		09E1ED03223E9415006AB1FC /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1ED02223E9415006AB1FC /* MessageRow.swift */; };
+		09F9A70D223EF2690039E3DA /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2F510221725F600A7BEEA /* Chat.swift */; };
 		09FFE4F4221C1FDF00622483 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FFE4F3221C1FDF00622483 /* Options.swift */; };
 /* End PBXBuildFile section */
 
@@ -417,6 +418,7 @@
 				09E1ED03223E9415006AB1FC /* MessageRow.swift in Sources */,
 				09E1ECF2223E9003006AB1FC /* NotificationController.swift in Sources */,
 				09E1ECF0223E9003006AB1FC /* ExtensionDelegate.swift in Sources */,
+				09F9A70D223EF2690039E3DA /* Chat.swift in Sources */,
 				09E1ECEE223E9003006AB1FC /* InterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

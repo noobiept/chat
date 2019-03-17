@@ -3,38 +3,19 @@ import Foundation
 import Starscream
 
 
-class InterfaceController: WKInterfaceController, WebSocketDelegate {
+class InterfaceController: WKInterfaceController, ChatDelegate {
 
     @IBOutlet var table: WKInterfaceTable!
-    var socket: WebSocket!
+
+    var chat: Chat!
+    var messages: [Message] = []
 
 
     override func awake( withContext context: Any? ) {
         super.awake( withContext: context )
 
-        self.addTestMessages()
-
-        let url = URL( string: "wss://chat4321.herokuapp.com/chat" )!
-        self.socket = WebSocket( url: url )
-        self.socket.delegate = self
-        self.socket.connect()
-    }
-
-
-    func addTestMessages() {
-        var testMessages: [String] = []
-
-        for index in 0 ..< 20 {
-            testMessages.append( "Test \(index)" )
-        }
-
-        self.table.setNumberOfRows( testMessages.count, withRowType: "MessageRow" )
-
-        for (index, str) in testMessages.enumerated() {
-            guard let row = self.table.rowController( at: index ) as? MessageRow else { continue }
-
-            row.text.setText( str )
-        }
+        self.chat = Chat( "wss://chat4321.herokuapp.com/chat" )
+        self.chat.delegate = self
     }
 
 
@@ -49,19 +30,35 @@ class InterfaceController: WKInterfaceController, WebSocketDelegate {
         super.didDeactivate()
     }
 
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("websocket is connected")
+
+    func setUsername( _ username: String ) {
+        print( "Username: \(username)" )
     }
 
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("websocket is disconnected: \(error?.localizedDescription ?? "")")
+    
+    func addMessage( _ message: Message ) {
+        let intIndex = self.messages.count
+        let index = IndexSet( integer: intIndex )
+        self.table.insertRows( at: index, withRowType: "MessageRow" )
+
+        guard let row = self.table.rowController( at: intIndex ) as? MessageRow else { return }
+        row.text.setText( message.message )
+
+        self.messages.append( message )
     }
 
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        print("got some text: \(text)")
+
+    func userJoined( _ message: Message ) {
+        print( "User joined: \(message)" )
     }
 
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        print("got some data: \(data.count)")
+
+    func userLeft( _ message: Message ) {
+        print( "User left: \(message)" )
+    }
+
+
+    func connected( _ count: Int ) {
+        print( "Connected: \(count)" )
     }
 }
