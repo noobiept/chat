@@ -9,7 +9,7 @@
 
 Requires:
 
-- `xcode` for the iOS client.
+- `xcode` and `carthage` for the iOS/watchOS client.
 - `node` for the web client.
 - `swift` for the server section.
 
@@ -17,9 +17,11 @@ Requires:
 |---------|-------------|
 | `npm install` | Install the web client and build dependencies. |
 | `npm run dev` | Compiles and runs both the web client and server builds (go to `localhost:8000/` to try it out). |
-| `npm run build` | Builds the release version of the server application. |
+| `npm run build` | Builds the release version of the web client and the server application. |
+| `brew install carthage` | Install the iOS dependency manager. |
+| `cd Client_iOS` then `carthage update` | Install the required dependencies. |
 
-Open `/Client_iOS/chat.xcodeproj` to check the iOS client project.
+Open `/Client_iOS/chat.xcodeproj` to check the iOS/watchOS client project.
 
 
 # Messages #
