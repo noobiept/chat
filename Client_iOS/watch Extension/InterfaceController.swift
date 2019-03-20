@@ -10,7 +10,6 @@ class InterfaceController: WKInterfaceController, ChatDelegate {
     var chat: Chat!
     var messages: [Message] = []
     var username: String?
-    var connectedCount = 0
 
 
     override func awake( withContext context: Any? ) {
@@ -61,17 +60,17 @@ class InterfaceController: WKInterfaceController, ChatDelegate {
 
     func userJoined( _ message: Message ) {
         self.addMessage( message )
-        self.connectedCount += 1
+        DATA.connected += 1
     }
 
 
     func userLeft( _ message: Message ) {
         self.addMessage( message )
-        self.connectedCount -= 1
+        DATA.connected -= 1
     }
 
 
     func connected( _ count: Int ) {
-        self.connectedCount = count
+        DATA.connected = count
     }
 }

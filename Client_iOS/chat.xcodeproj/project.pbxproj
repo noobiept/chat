@@ -27,6 +27,8 @@
 		09E1ECF4223E9003006AB1FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09E1ECF3223E9003006AB1FC /* Assets.xcassets */; };
 		09E1ECF9223E9003006AB1FC /* watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 09E1ECDC223E9002006AB1FC /* watch.app */; };
 		09E1ED03223E9415006AB1FC /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1ED02223E9415006AB1FC /* MessageRow.swift */; };
+		09F0A3F52242BB9A0086DE06 /* OptionsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F0A3F42242BB9A0086DE06 /* OptionsInterfaceController.swift */; };
+		09F0A3F72242D1140086DE06 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F0A3F62242D1140086DE06 /* Data.swift */; };
 		09F9A70D223EF2690039E3DA /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2F510221725F600A7BEEA /* Chat.swift */; };
 		09FFE4F4221C1FDF00622483 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FFE4F3221C1FDF00622483 /* Options.swift */; };
 /* End PBXBuildFile section */
@@ -99,6 +101,8 @@
 		09E1ECF5223E9003006AB1FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09E1ECF6223E9003006AB1FC /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		09E1ED02223E9415006AB1FC /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
+		09F0A3F42242BB9A0086DE06 /* OptionsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInterfaceController.swift; sourceTree = "<group>"; };
+		09F0A3F62242D1140086DE06 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		09FFE4F3221C1FDF00622483 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Options.swift; path = chat/Models/Options.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -215,7 +219,9 @@
 		09E1ECEC223E9003006AB1FC /* watch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				09F0A3F42242BB9A0086DE06 /* OptionsInterfaceController.swift */,
 				09E1ECED223E9003006AB1FC /* InterfaceController.swift */,
+				09F0A3F62242D1140086DE06 /* Data.swift */,
 				09E1ED02223E9415006AB1FC /* MessageRow.swift */,
 				09E1ECEF223E9003006AB1FC /* ExtensionDelegate.swift */,
 				09E1ECF1223E9003006AB1FC /* NotificationController.swift */,
@@ -415,8 +421,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F0A3F72242D1140086DE06 /* Data.swift in Sources */,
 				09E1ED03223E9415006AB1FC /* MessageRow.swift in Sources */,
 				09E1ECF2223E9003006AB1FC /* NotificationController.swift in Sources */,
+				09F0A3F52242BB9A0086DE06 /* OptionsInterfaceController.swift in Sources */,
 				09E1ECF0223E9003006AB1FC /* ExtensionDelegate.swift in Sources */,
 				09F9A70D223EF2690039E3DA /* Chat.swift in Sources */,
 				09E1ECEE223E9003006AB1FC /* InterfaceController.swift in Sources */,

@@ -9,10 +9,29 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14460.16"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--Options-->
+        <scene sceneID="xS8-1p-i3H">
+            <objects>
+                <controller identifier="Options" id="VKw-v5-q2x" customClass="OptionsInterfaceController" customModule="watch_Extension">
+                    <items>
+                        <group width="1" alignment="left" id="7mv-Wf-aWl">
+                            <items>
+                                <label alignment="left" verticalAlignment="center" text="Connected:" id="5Vs-X7-lyX"/>
+                                <label alignment="right" verticalAlignment="center" text="0" id="P5J-mn-8YZ"/>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="connectedLabel" destination="P5J-mn-8YZ" id="tah-XG-NwH"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="468" y="44"/>
+        </scene>
+        <!--Chat-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="watch" customModuleProvider="target">
+                <controller identifier="Chat" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="watch" customModuleProvider="target">
                     <items>
                         <table alignment="left" id="iH4-Mc-a7B">
                             <items>
@@ -31,10 +50,11 @@
                     </items>
                     <connections>
                         <outlet property="table" destination="iH4-Mc-a7B" id="Grf-sy-b2q"/>
+                        <segue destination="VKw-v5-q2x" kind="relationship" relationship="nextPage" id="lao-ib-48U"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="191" y="44"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
