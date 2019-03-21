@@ -8,7 +8,6 @@ class InterfaceController: WKInterfaceController, ChatDelegate {
     @IBOutlet var table: WKInterfaceTable!
 
     var chat: Chat!
-    var messages: [Message] = []
 
 
     override func awake( withContext context: Any? ) {
@@ -16,6 +15,11 @@ class InterfaceController: WKInterfaceController, ChatDelegate {
 
         self.chat = Chat( "wss://chat4321.herokuapp.com/chat" )
         self.chat.delegate = self
+
+        DATA.register( .message, {
+            data in
+            self.appendMessage( data as! Message )
+        })
     }
 
 
@@ -41,30 +45,48 @@ class InterfaceController: WKInterfaceController, ChatDelegate {
             type: .user
         )
 
-        self.addMessage( message )
+        DATA.addMessage( message )
     }
 
-    
+
+    /**
+     * Received a new message from the server, add it.
+     */
     func addMessage( _ message: Message ) {
-        let intIndex = self.messages.count
+        DATA.addMessage( message )
+    }
+
+
+    /**
+     * Send a message to the server.
+     */
+    func sendMessage( _ message: Message ) {
+        self.chat.sendMessageToServer( message )
+    }
+
+
+    /**
+     * Add the given message at the end of the table.
+     */
+    func appendMessage( _ message: Message ) {
+        let intIndex = self.table.numberOfRows
         let index = IndexSet( integer: intIndex )
+
         self.table.insertRows( at: index, withRowType: "MessageRow" )
 
         guard let row = self.table.rowController( at: intIndex ) as? MessageRow else { return }
         row.text.setText( message.message )
-
-        self.messages.append( message )
     }
 
 
     func userJoined( _ message: Message ) {
-        self.addMessage( message )
+        DATA.addMessage( message )
         DATA.connected += 1
     }
 
 
     func userLeft( _ message: Message ) {
-        self.addMessage( message )
+        DATA.addMessage( message )
         DATA.connected -= 1
     }
 

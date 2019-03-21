@@ -12,9 +12,11 @@ class OptionsInterfaceController: WKInterfaceController {
         super.awake( withContext: context )
 
         DATA.register( .connected, {
+            data in
             self.updateConnected()
         })
         DATA.register( .username, {
+            data in
             self.updateUsername()
         })
     }
@@ -55,8 +57,15 @@ class OptionsInterfaceController: WKInterfaceController {
             result in
 
             guard let result = result?.first as? String else { return }
+            guard let username = DATA.username else { return }
 
-            print( result )
+            let message = Message(
+                time: Date(),
+                username: username,
+                message: result,
+                type: .user
+            )
+            DATA.addMessage( message )
         })
     }
 }
