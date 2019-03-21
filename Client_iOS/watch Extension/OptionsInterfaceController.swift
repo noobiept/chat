@@ -37,4 +37,15 @@ class OptionsInterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
+
+    
+    @IBAction func addMessage() {
+        presentTextInputController( withSuggestions: [ "Hello there.", "Bye!", "Yes.", "No.", "Maybe." ], allowedInputMode: .allowEmoji, completion: {
+            result in
+
+            guard let result = result?.first as? String else { return }
+
+            print( result )
+        })
+    }
 }

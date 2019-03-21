@@ -26,6 +26,11 @@
                                 <label alignment="right" verticalAlignment="center" text="0" id="P5J-mn-8YZ"/>
                             </items>
                         </group>
+                        <button width="1" alignment="left" verticalAlignment="bottom" title="Add Message" id="Bbm-vL-tlJ">
+                            <connections>
+                                <action selector="addMessage" destination="VKw-v5-q2x" id="b3P-GW-0hf"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
                         <outlet property="connectedLabel" destination="P5J-mn-8YZ" id="tah-XG-NwH"/>
