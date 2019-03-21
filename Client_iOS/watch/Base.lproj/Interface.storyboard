@@ -14,6 +14,12 @@
             <objects>
                 <controller identifier="Options" id="VKw-v5-q2x" customClass="OptionsInterfaceController" customModule="watch_Extension">
                     <items>
+                        <group width="1" alignment="left" id="5ps-P7-Nge">
+                            <items>
+                                <label alignment="left" verticalAlignment="center" text="Username:" id="Ftu-Zz-8Rm"/>
+                                <label alignment="right" verticalAlignment="center" text="---" id="XuB-PA-WkN"/>
+                            </items>
+                        </group>
                         <group width="1" alignment="left" id="7mv-Wf-aWl">
                             <items>
                                 <label alignment="left" verticalAlignment="center" text="Connected:" id="5Vs-X7-lyX"/>
@@ -23,6 +29,7 @@
                     </items>
                     <connections>
                         <outlet property="connectedLabel" destination="P5J-mn-8YZ" id="tah-XG-NwH"/>
+                        <outlet property="usernameLabel" destination="XuB-PA-WkN" id="fqP-2u-H5x"/>
                     </connections>
                 </controller>
             </objects>

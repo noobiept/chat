@@ -9,7 +9,6 @@ class InterfaceController: WKInterfaceController, ChatDelegate {
 
     var chat: Chat!
     var messages: [Message] = []
-    var username: String?
 
 
     override func awake( withContext context: Any? ) {
@@ -33,7 +32,7 @@ class InterfaceController: WKInterfaceController, ChatDelegate {
 
 
     func setUsername( _ username: String ) {
-        self.username = username
+        DATA.username = username
 
         let message = Message(
             time: Date(),

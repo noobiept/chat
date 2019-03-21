@@ -4,6 +4,7 @@ import Foundation
 
 class OptionsInterfaceController: WKInterfaceController {
 
+    @IBOutlet var usernameLabel: WKInterfaceLabel!
     @IBOutlet var connectedLabel: WKInterfaceLabel!
 
 
@@ -15,14 +16,19 @@ class OptionsInterfaceController: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+
+        self.updateData()
     }
 
 
     /**
-     * Update the number of connected users.
+     * Update the labels with the current data values (number of connected users, username, etc).
      */
-    func updateConnected() {
+    func updateData() {
+        let username = DATA.username ?? "---"
         let connected = String( DATA.connected )
+
+        self.usernameLabel.setText( username )
         self.connectedLabel.setText( connected )
     }
 
