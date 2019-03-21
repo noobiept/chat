@@ -3,6 +3,7 @@ import Foundation
 
 enum AppDataEvent {
     case connected
+    case username
     case message
 }
 
@@ -11,7 +12,7 @@ class AppData {
 
     private var _callbacks: [AppDataEvent: [() -> Void]] = [:]
     private var _connected = 0
-    var username: String?
+    private var _username: String?
 
 
     var connected: Int {
@@ -21,12 +22,19 @@ class AppData {
 
         set( value ) {
             self._connected = value
+            self.callListeners( .connected )
+        }
+    }
 
-            if let callbacks = self._callbacks[ AppDataEvent.connected ] {
-                for callback in callbacks {
-                    callback()
-                }
-            }
+
+    var username: String? {
+        get {
+            return self._username
+        }
+
+        set( value ) {
+            self._username = value
+            self.callListeners( .username )
         }
     }
 
@@ -43,6 +51,18 @@ class AppData {
             self._callbacks[ event ] = [
                 callback
             ]
+        }
+    }
+
+
+    /**
+     * Call all the associated listeners of the given event.
+     */
+    private func callListeners( _ event: AppDataEvent ) {
+        if let callbacks = self._callbacks[ event ] {
+            for callback in callbacks {
+                callback()
+            }
         }
     }
 }

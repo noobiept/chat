@@ -12,7 +12,10 @@ class OptionsInterfaceController: WKInterfaceController {
         super.awake( withContext: context )
 
         DATA.register( .connected, {
-            self.updateData()
+            self.updateConnected()
+        })
+        DATA.register( .username, {
+            self.updateUsername()
         })
     }
 
@@ -20,19 +23,24 @@ class OptionsInterfaceController: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        self.updateData()
     }
 
 
     /**
-     * Update the labels with the current data values (number of connected users, username, etc).
+     * Update the UI with the current number of connected users.
      */
-    func updateData() {
-        let username = DATA.username ?? "---"
+    func updateConnected() {
         let connected = String( DATA.connected )
-
-        self.usernameLabel.setText( username )
         self.connectedLabel.setText( connected )
+    }
+
+
+    /**
+     * Update the UI with the current username.
+     */
+    func updateUsername() {
+        let username = DATA.username ?? "---"
+        self.usernameLabel.setText( username )
     }
 
 
