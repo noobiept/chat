@@ -65,7 +65,7 @@ class OptionsInterfaceController: WKInterfaceController {
                 message: result,
                 type: .user
             )
-            DATA.addMessage( message )
+            DATA.sendMessage( message )
         })
     }
 }

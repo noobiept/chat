@@ -8,13 +8,13 @@ enum AppDataEvent {
 }
 
 
-class AppData {
+class AppData: ChatDelegate {
 
     private var _callbacks: [AppDataEvent: [(Any?) -> Void]] = [:]
     private var _connected = 0
     private var _username: String?
     private var _messages: [Message] = []
-
+    private var _chat: Chat!
 
     var connected: Int {
         get {
@@ -27,7 +27,6 @@ class AppData {
         }
     }
 
-
     var username: String? {
         get {
             return self._username
@@ -39,15 +38,14 @@ class AppData {
         }
     }
 
-
     var messages: [Message] {
         return self._messages
     }
 
 
-    func addMessage( _ message: Message ) {
-        self._messages.append( message )
-        self.callListeners( .message, message )
+    init() {
+        self._chat = Chat( "wss://chat4321.herokuapp.com/chat" )
+        self._chat.delegate = self
     }
 
 
@@ -76,6 +74,68 @@ class AppData {
                 callback( data )
             }
         }
+    }
+
+
+    /**
+     * Send a message to the server.
+     */
+    func sendMessage( _ message: Message ) {
+        self._chat.sendMessageToServer( message )
+        self.addMessage( message )
+    }
+
+
+    /**
+     * The username we receive its the one associated with this user (we receive it shortly after connecting to the server).
+     */
+    func setUsername(_ username: String) {
+        self.username = username
+
+        let message = Message(
+            time: Date(),
+            username: username,
+            message: "Connected!",
+            type: .user
+        )
+
+        self.addMessage( message )
+    }
+
+
+    /**
+     * Received a new message from the server, add it.
+     * Can also be called directly to add a message to the list.
+     */
+    func addMessage( _ message: Message ) {
+        self._messages.append( message )
+        self.callListeners( .message, message )
+    }
+
+
+    /**
+     * A user has joined the chat, show a message and update the number of connected users.
+     */
+    func userJoined(_ message: Message) {
+        self.addMessage( message )
+        self.connected += 1
+    }
+
+
+    /**
+     * A user has left the chat, show a message and update the number of connected users.
+     */
+    func userLeft(_ message: Message) {
+        self.addMessage( message )
+        self.connected -= 1
+    }
+
+
+    /**
+     * Received shortly after connecting to the server, tells us the number of existing users in the chat as we enter it.
+     */
+    func connected(_ count: Int) {
+        self.connected = count
     }
 }
 
