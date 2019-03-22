@@ -27,6 +27,11 @@ class InterfaceController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+
+        // when switching pages watchOS scrolls the table back to the top
+        // so we scroll it again back to the end
+        // its in 'didDeactivate' instead of 'willActivate' so it doesn't have the scroll animation
+        self.scrollToBottom()
     }
 
 
@@ -41,5 +46,16 @@ class InterfaceController: WKInterfaceController {
 
         guard let row = self.table.rowController( at: intIndex ) as? MessageRow else { return }
         row.text.setText( message.message )
+
+        self.scrollToBottom()
+    }
+
+
+    /**
+     * Scroll to the last message (so its readable).
+     */
+    func scrollToBottom() {
+        let lastIndex = self.table.numberOfRows - 1
+        self.table.scrollToRow( at: lastIndex )
     }
 }
