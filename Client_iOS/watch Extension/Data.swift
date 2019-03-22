@@ -18,6 +18,8 @@ class AppData: ChatDelegate {
     private var _messages: [Message] = []
     private var _chat: Chat!
 
+    let inputLength = 200   // maximum string length we can accept for a message
+    
     var connected: Int {
         get {
             return self._connected

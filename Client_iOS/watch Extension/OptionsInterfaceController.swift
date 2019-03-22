@@ -57,6 +57,7 @@ class OptionsInterfaceController: WKInterfaceController {
             result in
 
             guard let result = result?.first as? String else { return }
+            guard result.count <= AppData.chat.inputLength else { return }
             guard let username = AppData.chat.username else { return }
 
             let message = Message(
