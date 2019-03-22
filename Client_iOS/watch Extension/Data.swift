@@ -116,19 +116,17 @@ class AppData: ChatDelegate {
 
 
     /**
-     * A user has joined the chat, show a message and update the number of connected users.
+     * A user has joined the chat, update the number of connected users.
      */
     func userJoined(_ message: Message) {
-        self.addMessage( message )
         self.connected += 1
     }
 
 
     /**
-     * A user has left the chat, show a message and update the number of connected users.
+     * A user has left the chat, update the number of connected users.
      */
     func userLeft(_ message: Message) {
-        self.addMessage( message )
         self.connected -= 1
     }
 
