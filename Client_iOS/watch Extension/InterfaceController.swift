@@ -45,7 +45,7 @@ class InterfaceController: WKInterfaceController {
         self.table.insertRows( at: index, withRowType: "MessageRow" )
 
         guard let row = self.table.rowController( at: intIndex ) as? MessageRow else { return }
-        row.text.setText( message.message )
+        row.update( message )
 
         self.scrollToBottom()
     }

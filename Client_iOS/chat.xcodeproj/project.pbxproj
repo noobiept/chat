@@ -13,6 +13,7 @@
 		0954B1852216E35200386D76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0954B1832216E35200386D76 /* Main.storyboard */; };
 		0954B1872216E35200386D76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0954B1862216E35200386D76 /* Assets.xcassets */; };
 		0954B18A2216E35200386D76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0954B1882216E35200386D76 /* LaunchScreen.storyboard */; };
+		095D6212224548F4006649FB /* UserColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092EB1C4221D79CA00578441 /* UserColors.swift */; };
 		09665614221B3E4600E3D729 /* OptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09665613221B3E4600E3D729 /* OptionsTableViewController.swift */; };
 		096BD626223EC7EA0020CF7B /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096BD625223EC7EA0020CF7B /* Starscream.framework */; };
 		09B2F50E2216FD4800A7BEEA /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B2F50D2216FD4800A7BEEA /* Starscream.framework */; };
@@ -425,6 +426,7 @@
 				09E1ED03223E9415006AB1FC /* MessageRow.swift in Sources */,
 				09E1ECF2223E9003006AB1FC /* NotificationController.swift in Sources */,
 				09F0A3F52242BB9A0086DE06 /* OptionsInterfaceController.swift in Sources */,
+				095D6212224548F4006649FB /* UserColors.swift in Sources */,
 				09E1ECF0223E9003006AB1FC /* ExtensionDelegate.swift in Sources */,
 				09F9A70D223EF2690039E3DA /* Chat.swift in Sources */,
 				09E1ECEE223E9003006AB1FC /* InterfaceController.swift in Sources */,
