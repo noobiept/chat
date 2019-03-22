@@ -11,7 +11,7 @@ class InterfaceController: WKInterfaceController {
     override func awake( withContext context: Any? ) {
         super.awake( withContext: context )
 
-        DATA.register( .message, {
+        AppData.chat.register( .message, {
             data in
             self.appendMessage( data as! Message )
         })

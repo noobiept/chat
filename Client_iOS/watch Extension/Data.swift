@@ -10,6 +10,8 @@ enum AppDataEvent {
 
 class AppData: ChatDelegate {
 
+    static let chat = AppData( url: "wss://chat4321.herokuapp.com/chat" )
+
     private var _callbacks: [AppDataEvent: [(Any?) -> Void]] = [:]
     private var _connected = 0
     private var _username: String?
@@ -43,8 +45,8 @@ class AppData: ChatDelegate {
     }
 
 
-    init() {
-        self._chat = Chat( "wss://chat4321.herokuapp.com/chat" )
+    private init( url: String ) {
+        self._chat = Chat( url )
         self._chat.delegate = self
     }
 
@@ -138,6 +140,3 @@ class AppData: ChatDelegate {
         self.connected = count
     }
 }
-
-
-let DATA = AppData()

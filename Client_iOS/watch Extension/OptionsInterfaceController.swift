@@ -11,11 +11,11 @@ class OptionsInterfaceController: WKInterfaceController {
     override func awake( withContext context: Any? ) {
         super.awake( withContext: context )
 
-        DATA.register( .connected, {
+        AppData.chat.register( .connected, {
             data in
             self.updateConnected()
         })
-        DATA.register( .username, {
+        AppData.chat.register( .username, {
             data in
             self.updateUsername()
         })
@@ -32,7 +32,7 @@ class OptionsInterfaceController: WKInterfaceController {
      * Update the UI with the current number of connected users.
      */
     func updateConnected() {
-        let connected = String( DATA.connected )
+        let connected = String( AppData.chat.connected )
         self.connectedLabel.setText( connected )
     }
 
@@ -41,7 +41,7 @@ class OptionsInterfaceController: WKInterfaceController {
      * Update the UI with the current username.
      */
     func updateUsername() {
-        let username = DATA.username ?? "---"
+        let username = AppData.chat.username ?? "---"
         self.usernameLabel.setText( username )
     }
 
@@ -57,7 +57,7 @@ class OptionsInterfaceController: WKInterfaceController {
             result in
 
             guard let result = result?.first as? String else { return }
-            guard let username = DATA.username else { return }
+            guard let username = AppData.chat.username else { return }
 
             let message = Message(
                 time: Date(),
@@ -65,7 +65,7 @@ class OptionsInterfaceController: WKInterfaceController {
                 message: result,
                 type: .user
             )
-            DATA.sendMessage( message )
+            AppData.chat.sendMessage( message )
         })
     }
 }
