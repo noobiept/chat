@@ -47,7 +47,7 @@
                     <items>
                         <table alignment="left" id="iH4-Mc-a7B">
                             <items>
-                                <tableRow identifier="MessageRow" id="Wt1-Ss-mTn" customClass="MessageRow" customModule="watch_Extension">
+                                <tableRow identifier="MessageRow" selectable="NO" id="Wt1-Ss-mTn" customClass="MessageRow" customModule="watch_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="Nyk-5W-SXX">
                                         <items>
                                             <label alignment="left" verticalAlignment="center" text="Label" id="Y5r-L4-0ep"/>
