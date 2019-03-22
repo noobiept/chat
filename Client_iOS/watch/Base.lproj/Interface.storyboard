@@ -16,7 +16,7 @@
                     <items>
                         <group width="1" alignment="left" id="5ps-P7-Nge">
                             <items>
-                                <label alignment="left" verticalAlignment="center" text="Username:" id="Ftu-Zz-8Rm"/>
+                                <label alignment="left" verticalAlignment="center" text="Name:" id="Ftu-Zz-8Rm"/>
                                 <label alignment="right" verticalAlignment="center" text="---" id="XuB-PA-WkN"/>
                             </items>
                         </group>
