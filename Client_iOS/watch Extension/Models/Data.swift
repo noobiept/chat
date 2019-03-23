@@ -19,6 +19,7 @@ class AppData: ChatDelegate {
     private var _chat: Chat!
 
     let inputLength = 200   // maximum string length we can accept for a message
+    let maxMessages = 100   // maximum number of messages we keep track of in the table view
     
     var connected: Int {
         get {
@@ -138,5 +139,25 @@ class AppData: ChatDelegate {
      */
     func connected(_ count: Int) {
         self.connected = count
+    }
+
+
+    /**
+     * Only keep track of certain number of messages.
+     * Once we reach the limit clear a few of them.
+     * Returns the range of messages that were removed.
+     */
+    func clearMessageListIfNeeded() -> Range<Int>? {
+        let count = self._messages.count
+
+        if count >= self.maxMessages {
+            let half = self.maxMessages / 2
+            let range = 0 ..< half
+            self._messages.removeSubrange( range )
+
+            return range
+        }
+
+        return nil
     }
 }

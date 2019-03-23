@@ -47,6 +47,16 @@ class InterfaceController: WKInterfaceController {
         guard let row = self.table.rowController( at: intIndex ) as? MessageRow else { return }
         row.update( message )
 
+        // check if we need to cut the number of rows in the table (have a maximum number of messages/rows that we keep track of)
+        if let range = AppData.chat.clearMessageListIfNeeded() {
+            let index = IndexSet( integer: range.startIndex )
+
+            // remove from the start position the range count
+            for _ in range {
+                self.table.removeRows( at: index )
+            }
+        }
+
         self.scrollToBottom()
     }
 
