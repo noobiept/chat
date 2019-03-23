@@ -116,7 +116,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      * A user has joined the chat, show a notification of that.
      */
     func userJoined( _ message: Message ) {
-        self.connected( self.connectedCount + 1 )
+        self.usersCount( self.connectedCount + 1 )
 
         if self.options.showJoinLeftMessages {
             self.addMessage( message )
@@ -128,7 +128,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      * A user has left the chat, show a notification of that.
      */
     func userLeft( _ message: Message ) {
-        self.connected(self.connectedCount - 1)
+        self.usersCount( self.connectedCount - 1 )
 
         if self.options.showJoinLeftMessages {
             self.addMessage( message )
@@ -152,9 +152,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     /**
      * Update the number of connected users UI element.
      */
-    func connected( _ count: Int ) {
+    func usersCount( _ count: Int ) {
         self.connectedCountLabel.text = "Connected: \(count)"
         self.connectedCount = count
+    }
+
+
+    /**
+     * The connection with the server was lost, inform the user of that.
+     */
+    func disconnected() {
+        guard let username = self.username else { return }
+
+        let message = Message(
+            time: Date(),
+            username: username,
+            message: "Disconnected! (will try to reconnect in 5s)",
+            type: .user
+        )
+
+        self.addMessage( message )
     }
 
 

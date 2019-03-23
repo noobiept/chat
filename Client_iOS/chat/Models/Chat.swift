@@ -21,7 +21,8 @@ protocol ChatDelegate: class {
     func addMessage( _ message: Message ) -> Void
     func userJoined( _ message: Message ) -> Void
     func userLeft( _ message: Message ) -> Void
-    func connected( _ count: Int ) -> Void
+    func usersCount( _ count: Int ) -> Void     // called with the number of initial users that are active in the chat
+    func disconnected() -> Void                 // called when the connection is lost
 }
 
 
@@ -62,6 +63,7 @@ class Chat: WebSocketDelegate {
     
     func websocketDidDisconnect( socket: WebSocketClient, error: Error? ) {
         print( "Disconnected!" )
+        self.delegate.disconnected()
         self.reconnect()
     }
     
@@ -118,7 +120,7 @@ class Chat: WebSocketDelegate {
         let count = Int( split[ 1 ] )
 
         if let count = count {
-            self.delegate.connected( count )
+            self.delegate.usersCount( count )
         }
     }
 

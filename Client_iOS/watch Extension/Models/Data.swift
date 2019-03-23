@@ -137,7 +137,7 @@ class AppData: ChatDelegate {
     /**
      * Received shortly after connecting to the server, tells us the number of existing users in the chat as we enter it.
      */
-    func connected(_ count: Int) {
+    func usersCount(_ count: Int) {
         self.connected = count
     }
 
@@ -159,5 +159,22 @@ class AppData: ChatDelegate {
         }
 
         return nil
+    }
+
+
+    /**
+     * The connection with the server was lost, inform the user of that.
+     */
+    func disconnected() {
+        guard let username = self.username else { return }
+
+        let message = Message(
+            time: Date(),
+            username: username,
+            message: "Disconnected! (will try to reconnect in 5s)",
+            type: .user
+        )
+
+        self.addMessage( message )
     }
 }
