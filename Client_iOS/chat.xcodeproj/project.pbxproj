@@ -127,6 +127,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		090334B3224672B70021BC7B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				09E1ED02223E9415006AB1FC /* MessageRow.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		090334B4224672EF0021BC7B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				09F0A3F42242BB9A0086DE06 /* OptionsInterfaceController.swift */,
+				09E1ECED223E9003006AB1FC /* InterfaceController.swift */,
+				09E1ECF1223E9003006AB1FC /* NotificationController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		090334B52246730F0021BC7B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				09F0A3F62242D1140086DE06 /* Data.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		0954B1732216E35200386D76 = {
 			isa = PBXGroup;
 			children = (
@@ -220,12 +246,10 @@
 		09E1ECEC223E9003006AB1FC /* watch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				09F0A3F42242BB9A0086DE06 /* OptionsInterfaceController.swift */,
-				09E1ECED223E9003006AB1FC /* InterfaceController.swift */,
-				09F0A3F62242D1140086DE06 /* Data.swift */,
-				09E1ED02223E9415006AB1FC /* MessageRow.swift */,
+				090334B3224672B70021BC7B /* Views */,
+				090334B52246730F0021BC7B /* Models */,
+				090334B4224672EF0021BC7B /* Controllers */,
 				09E1ECEF223E9003006AB1FC /* ExtensionDelegate.swift */,
-				09E1ECF1223E9003006AB1FC /* NotificationController.swift */,
 				09E1ECF3223E9003006AB1FC /* Assets.xcassets */,
 				09E1ECF5223E9003006AB1FC /* Info.plist */,
 				09E1ECF6223E9003006AB1FC /* PushNotificationPayload.apns */,
