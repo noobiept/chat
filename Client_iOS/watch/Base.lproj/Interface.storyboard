@@ -54,6 +54,7 @@
                                         </items>
                                     </group>
                                     <connections>
+                                        <outlet property="group" destination="Nyk-5W-SXX" id="tUI-iR-Lb9"/>
                                         <outlet property="text" destination="Y5r-L4-0ep" id="LJM-ro-exW"/>
                                     </connections>
                                 </tableRow>
