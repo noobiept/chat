@@ -50,7 +50,7 @@
                                 <tableRow identifier="MessageRow" selectable="NO" id="Wt1-Ss-mTn" customClass="MessageRow" customModule="watch_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="Nyk-5W-SXX">
                                         <items>
-                                            <label alignment="left" verticalAlignment="center" text="Label" id="Y5r-L4-0ep"/>
+                                            <label alignment="left" verticalAlignment="center" text="Label" numberOfLines="2" id="Y5r-L4-0ep"/>
                                         </items>
                                     </group>
                                     <connections>
