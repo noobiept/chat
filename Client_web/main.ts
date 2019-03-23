@@ -77,10 +77,12 @@ function connectWebSocket() {
     SOCKET.onopen = socketReady;
     SOCKET.onclose = function() {
         console.log( 'Socket closed' );
+        addSystemMessage( textElement( "Disconnected! (will try to reconnect in 5s)" ) );
         reconnectWebSocket();
     };
     SOCKET.onerror = function( event ) {
         console.log( event );
+        addSystemMessage( textElement( "Disconnected! (will try to reconnect in 5s)" ) );
         reconnectWebSocket();
     };
     SOCKET.onmessage = function ( event: MessageEvent ) {
