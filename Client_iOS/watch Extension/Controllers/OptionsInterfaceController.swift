@@ -67,6 +67,13 @@ class OptionsInterfaceController: WKInterfaceController {
                 type: .user
             )
             AppData.chat.sendMessage( message )
+
+            // change to the 'chat' page (so we can see the message we just sent)
+            NotificationCenter.default.post( name: Notification.Name( "OpenChatPage" ), object: nil )
+
+            // the interface isn't dismissed when adding some emotes
+            // so we manually dismiss it to make sure we go back to the chat page
+            self.dismissTextInputController()
         })
     }
 }

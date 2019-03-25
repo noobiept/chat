@@ -15,6 +15,8 @@ class InterfaceController: WKInterfaceController {
             data in
             self.appendMessage( data as! Message )
         })
+
+        NotificationCenter.default.addObserver( self, selector: #selector( self.openThisPage ), name: Notification.Name( "OpenChatPage" ), object: nil )
     }
 
 
@@ -67,5 +69,13 @@ class InterfaceController: WKInterfaceController {
     func scrollToBottom() {
         let lastIndex = self.table.numberOfRows - 1
         self.table.scrollToRow( at: lastIndex )
+    }
+
+
+    /**
+     * Open the chat page.
+     */
+    @objc func openThisPage( notification: Notification ) {
+        self.becomeCurrentPage()
     }
 }
