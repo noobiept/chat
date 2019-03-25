@@ -2,7 +2,7 @@
 
 [http://chat4321.herokuapp.com/](http://chat4321.herokuapp.com/)
 
-![Image](Images/readme.png)
+![Web client](Images/readme_resized.png) ![iOS/watchOS clients](Images/iOS_watchOS_resized.png)
 
 
 # Build #
